@@ -1,0 +1,70 @@
+set vertical-split = false
+set main-view = id date author commit-title:graph=yes,refs=yes
+
+# checkout -b
+bind branch B ?git checkout -b "%(prompt Enter new branch name:)" %(branch)
+bind main   B ?git checkout -b "%(prompt Enter new branch name: )"
+
+set diff-context = 4
+
+# reset hard
+bind status <Ctrl-r> ?git reset HEAD
+
+# L で reflog
+bind generic L      !sh -c "git reflog --pretty=raw | tig --pretty=raw"
+bind generic W :!git reflog
+# _ で指定 reflog 番号にリセット
+bind generic _      ?git reset --hard HEAD@{"%(prompt Enter HEAD@{} number: )"}
+
+# リポジトリのGitHubを表示
+bind generic ^ @hub browse
+
+## alias vim-like
+bind main g move-first-line
+bind main G move-last-line
+
+## cp commit hash
+bind main H !@git pbcopy %(commit)
+bind diff H !@git pbcopy %(commit)
+bind blame H !@git pbcopy %(commit)
+
+## rebase
+#bind main    R !git rebase -i %(commit)
+#bind diff    R !git rebase -i %(commit)
+
+set blame-view  = date:default author:email-user id:yes,color line-number:yes,interval=1 text
+set pager-view  = line-number:yes,interval=1 text
+set stage-view  = line-number:yes,interval=1 text
+set log-view    = line-number:yes,interval=1 text
+set blob-view   = line-number:yes,interval=1 text
+set diff-view   = line-number:yes,interval=1 text:yes,commit-title-overflow=no
+
+set editor-line-number = yes
+
+# ; で GitHub の該当コミットを開く ※要 hub インストール
+bind main    ;      @hub browse -- commit/%(commit)
+bind blame   ;      @hub browse -- commit/%(commit)
+bind diff    ;      @hub browse -- commit/%(commit)
+
+# ; で GitHub の該当ページを開く
+bind tree    ;      @hub browse -- blob/%(branch)/%(file)
+bind blob    ;      @hub browse -- blob/%(branch)/%(file)
+bind grep    ;      @hub browse -- blob/%(branch)/%(file)
+
+# w で GitHub の該当ブランチの Pull Request 作成ページを開く ※要 hub インストール
+bind main    w      @hub browse -- compare/%(branch)?expand=1
+bind diff    w      @hub browse -- compare/%(branch)?expand=1
+bind refs    w      @hub browse -- compare/%(branch)?expand=1
+
+# ref: https://qiita.com/sfus/items/063797a1dd8fdc7d032f
+# S で stash save
+bind generic S      ?git stash save "%(prompt Enter stash comment: )"
+bind generic T      !git tmp
+
+# Y で stash pop
+bind diff    Y      ?git stash pop %(stash)
+bind stash   Y      ?git stash pop %(stash)
+
+# Alt-y で stash apply
+bind diff    <Esc>y ?git stash apply %(stash)
+bind stash   <Esc>y ?git stash apply %(stash)

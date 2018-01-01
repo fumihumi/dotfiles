@@ -1,0 +1,29 @@
+export PATH=$PATH:$HOME/.local/bin
+
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export PATH=$PATH:$HOME/.yarn/bin
+
+export PATH=$PATH:$HOME/.composer/vendor/bin
+export PATH=$PATH:$HOME/pear/bin
+
+export PATH=$PATH:/usr/local/opt/icu4c/bin
+export PATH=$PATH:/usr/local/opt/libarchive/bin
+
+# https://github.com/miyagaw61/gists
+export GIT_TOKEN_FILE=~/.config/.GIT_TOKEN_FILE # gist token
+export PATH=$PATH:/Users/fumihumi/Repositories/github.com/miyagaw61/gists
+
+export PKG_CONFIG_PATH="/usr/local/opt/imagemagick@6/lib/pkgconfig"
+
+export PATH="$HOME/.fastlane/bin:$PATH"
+
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
+
+export FZF_COMPLETION_TRIGGER="," # default: '**'
+export GO111MODULE=on

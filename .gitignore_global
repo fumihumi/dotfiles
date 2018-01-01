@@ -1,0 +1,18 @@
+#git config --global core.excludesfile ~/.gitignore
+
+.DS_Store
+.idea/*
+.tmux*.log
+.yardoc/*
+.pryrc
+.tmp
+/vendor/bundle
+dump.rdb
+.solargraph.yml
+.tool-versions
+.tabnineignore
+elasticsearch-*/
+
+.vscode/settings.json
+
+*.p8

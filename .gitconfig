@@ -1,0 +1,92 @@
+[user]
+  email = t.fum1hum@gmail.com
+  name = fumihumi
+[core]
+  excludesfile = $HOME/.gitignore
+  trailing-space = false
+  space-before-tab = false
+  ignorecase = false
+  precomposeunicode = true
+  quotepath = false
+[alias]
+  empty = !"fun() { git commit --allow-empty -m 'empty commit'; }; fun"
+  graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+  pop = stash pop
+  named-stash = ! git stash save
+  s = status
+  ch = checkout
+  cb = checkout -b
+  b = branch
+  D = branch -D
+  A = add -A
+  c = commit
+  current-branch = symbolic-ref --short HEAD
+  current = rev-parse --abbrev-ref HEAD
+  copy-branch = ! git current | tr -d '\n' | pbcopy
+  cu = rev-parse --abbrev-ref HEAD
+  n = diff --name-only
+  diff-file-name = ! git diff master --name-only
+  force-pull = !git fetch && git reset --hard origin/$(git current-branch)
+  unshallow = !git fetch --unshallow
+  show-branch-root = merge-base master HEAD
+  pbcopy = !printf "$1" | pbcopy
+  pppush = ! git push -u origin $(git current)
+  fp-push = ! git push -u origin $(git current) -f
+  heroku-push-current = ! git push heroku +HEAD:master
+  set-remote = ! git branch --set-upstream-to=origin/$(git current-branch) $(git current-branch)
+  fixup = "!f () { git rebase -i HEAD~$1;};f"
+  tmp= ! git commit -m 'tmp!'
+  wip= ! git add -A && git commit -m '[ci skip] wip!'
+  rebase-root= ! git pull --rebase origin master
+  zip = !git archive --format=zip HEAD > `git symbolic-ref --short HEAD`.zip
+  ammend="! git commit --amend"
+  last="! git show HEAD"
+  list-untracked-file="!git ls-files --others --exclude-standard"
+  delete-merged-branches = "!f () { git branch --merged | egrep -v '\\*|master|develop' | xargs git branch -d; }; f"
+  alias = ! git config --get-regexp alias | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  summary= ! git log --oneline --pretty=format:'%h [%cd] %d %s <%an>' --date=format:'%Y%m%d' | grep `date +%Y%m%d` | wc -l
+  update-packages="! git checkout -b ncu_`date +%Y%m%d`"
+  default-branch="! git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2"
+  latest-message="! git log -n 1 --pretty=format:'%s'"
+[color]
+  ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+[push]
+  default = current
+[pull]
+  default = current
+  rebase = true
+  prune = true
+[diff]
+  renames = true
+  tool = nvimdiff
+[merge]
+  log = true
+  tool = nvimdiff
+[core]
+  quotepath = false
+  excludesfile = ~/.gitignore_global
+  editor = nvim
+  safecrlf = true
+  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+
+[difftool "nvimdiff"]
+  cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
+[mergetool "nvimdiff"]
+  keepBackup = false
+  cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\""
+  trustExitCode = true
+[commit]
+  template = ~/.git_commit_template
+[rebase]
+  autostash = true
+[ghq]
+  root = ~/Repositories
+[fetch]
+  prune = true
+[interactive]
+  diffFilter = delta --color-only
+[include]
+  path = ~/.gitconfig_work

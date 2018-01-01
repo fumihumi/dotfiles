@@ -1,0 +1,120 @@
+alias soba='source ~/.bash_profile'
+
+alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+
+alias d="Date"
+alias e="exit"
+alias s="cd .."
+alias ss='cd ../../'
+alias h="history"
+alias g='git'
+alias grep='grep -E --color=auto'
+alias od='od -tx1z -Ax -v'
+
+alias l='ls'
+alias ls='ls -G'
+alias ll='ls -alh'
+alias la='ls -a'
+alias l='ls -l'
+alias p='pwd'
+
+#alias tmux
+alias tm='tmux new-session -s'
+alias ta="tmux a"
+alias tl="tmux ls"
+alias tc="clear && tmux clear-history"
+alias cl="clear && tmux clear-history"
+
+# alias git
+alias t='tig'
+alias gil="git log --oneline --graph --decorate --branches"
+alias gis='git status -s'
+alias gib='git branch'
+alias b='git branch'
+alias gl='gil -n'
+alias gin='git diff --name-only'
+alias gid='git diff'
+alias gg='git grep'
+alias ggn='git grep --name-only'
+alias cb='git cb'
+alias st='git status'
+alias gip='git pull'
+alias gic='git current'
+alias gipush='git power-push'
+
+#rails command
+alias rr='rake routes'
+alias rc='be rails c -e test --sandbox'
+alias be='bundle exec'
+alias bebo='be rubocop -a'
+alias br='be rspec'
+alias bi='bundle install'
+alias rs="./bin/rails s -b 0.0.0.0"
+alias rails-ps="ps aux | grep puma | grep -v grep | awk '{print $2}'"
+alias rails-kill="kill -9 `ps aux | grep puma | grep -v grep | awk '{print $2}'`"
+
+
+alias db:migrate='rails db:migrate'
+alias db:rollback='rails db:rollback'
+alias db:status='rails db:migrate:status'
+alias db:seed='rails db:seed'
+alias db:reset='rails db:reset'
+alias pryvim='vim `git grep --name-only binding.pry`'
+alias vimpr='pryvim'
+alias prvim='pryvim'
+
+alias y='yarn'
+alias ys='yarn start'
+alias yb='yarn build'
+
+#rails dashboard
+#https://goo.gl/bGH9ED
+
+alias devise2slim='for file in app/views/devise/**/*.erb; do erb2slim $file ${file%erb}slim && rm $file; done'
+alias erb2slimFile='for i in app/views/**/*.erb; do erb2slim $i ${i%erb}slim && rm $i; done'
+
+#----------------------------------
+#alias vim='$HOME/viim/bin/vim'
+alias vim='nvim'
+
+#alias source
+alias soba='source ~/.bash_profile'
+alias viba='vim ~/.bash_profile'
+
+## neovim setting
+#export XDG_CONFIG_HOME="$HOME/.config"
+
+#---------------------------
+##alias trans (https://qiita.com/passionate-engineer/items/1eaa806c857516aea051)
+alias ej="trans {en=ja}"
+alias je="trans {ja=en}"
+
+#------------------------------------------------
+#ngrok setting
+alias ngs='ngrok http -subdomain'
+#use 'ngs "domainname port" -> ngs fumihumi 3000'
+
+# alias open application
+alias o='open .' # finder
+alias c='code .' # vscode
+alias station='open /Applications/Station.app/'
+
+alias short="export PS1='\[\033[32m\] (\W)\[\033[32m\]: \[\033[00m\]'"
+alias sl='echo "進捗どうですか？"'
+
+debug_ip_address() {
+  echo DEBUG_IP_ADDRESS=\"`ifconfig | grep 192 | awk '{print $2}'`\"
+}
+alias copy_debug_ip_address="debug_ip_address | pbcopy"
+
+alias ms="mysql.server restart"
+alias sim="open -a Simulator"
+alias power="ruby -e 'puts %x(pmset -g batt).match(/\d+%/)'"
+alias emulator-list="emulator -list-avds"
+alias today='date "+%Y/%m/%d"'
+alias lg="lazygit"
+alias ff=" ~/Repositories/github.com/skanehira/ff/main"
+alias show-npm-scripts="cat package.json  | jq -r '.scripts'"
+
+alias go-reshim='asdf reshim golang && export GOV=$(asdf current golang | sed  '\''s/ *(set by .*)//g'\'') && export GOROOT="$ASDFINSTALLS/golang/$GOV/go/"'
+alias cop='bebo `gin`'

@@ -1,0 +1,17 @@
+
+function tld {
+  local delSessionName
+  delSessionName=$( tmux ls | fzf | awk -F : '{printf $1}' ) &&
+  tmux kill-session -t $(echo "$delSessionName")
+}
+
+function tla {
+  local attachSessionName
+  attachSessionName=$( tmux ls | fzf | awk -F : '{printf $1}' ) &&
+  tmux a -t $(echo "$attachSessionName")
+}
+
+mux() {
+  # tmuxnator listがスペース区切りで出力するのでfzf食べさせるために改行にするとかしてる
+  tmuxinator start `tmuxinator list | grep -v project | awk '{for(i=1;i<=NF;i++)print $i;}' | fzf`
+}

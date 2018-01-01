@@ -1,0 +1,48 @@
+" inspired: https://okayu-moka.hatenablog.com/entry/2017/10/12/223048
+
+" if has('nvim')
+"     let g:vim_home = expand('~/.config/nvim')
+"     let g:rc_dir = expand('~/.config/nvim/rc')
+" else
+"     let g:vim_home = expand('~/.config/vim')
+"     let g:rc_dir = expand('~/.config/vim/rc')
+" endif
+" 
+" " rcファイル読み込み関数
+" function! s:source_rc(rc_file_name)
+"     let rc_file = expand(g:rc_dir . '/' . a:rc_file_name)
+"     if filereadable(rc_file)
+"         execute 'source' rc_file
+"     endif
+" endfunction
+" 
+" call s:source_rc('dein_init.rc.vim')
+" call s:source_rc('init.rc.vim')
+" call s:source_rc('keymap.rc.vim')
+" call s:source_rc('filetype.rc.vim')
+" call s:source_rc('lsp/solargraph.vim')
+" call s:source_rc('lsp/typescript.vim')
+
+
+
+set number
+set fenc=utf=8
+set nobackup
+set autoread
+set hidden
+set showcmd
+set cursorline
+" column high right
+" set cursorcolumn
+set virtualedit=block
+set smartindent
+set laststatus=2
+set wildmode=list:longest
+
+set ignorecase
+set smartcase
+set incsearch
+set wrapscan
+set hlsearch
+
+nmap <Esc><Esc> :nohlsearch<CR><Esc>

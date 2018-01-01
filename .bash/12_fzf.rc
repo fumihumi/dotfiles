@@ -1,0 +1,26 @@
+# refs: https://blog.leko.jp/post/more-easy-to-use-npm-scripts/
+_npm_run_fzf() {
+    local cur prev cword
+    _get_comp_words_by_ref -n : cur prev cword
+    if [ "$prev" = "run" ] || [ "$prev" = "yarn" ]; then
+        COMPREPLY=$(cat package.json | jq -r '.scripts | keys[]' | fzf --query=$cur)
+    fi
+}
+
+complete -F _npm_run_fzf npm yarn
+
+fzf_emulator_open() {
+  emulator -avd `emulator -list-avds | fzf`
+}
+
+ghq_cd() {
+  cd "$( ghq list --full-path | fzf)"
+}
+
+cd_ghq_root() {
+  cd "$(ghq root)/github.com"
+}
+
+alias chq='ghq_cd'
+alias croot='cd_ghq_root'
+alias femulator='fzf_emulator_open'

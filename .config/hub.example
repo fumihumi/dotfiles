@@ -1,0 +1,5 @@
+---
+github.com:
+- protocol: https
+  user: fumihumi
+  oauth_token: AUTH_TOKEN

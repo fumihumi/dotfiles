@@ -1,0 +1,17 @@
+# ~/.config/tmuxinator/sample.yml
+
+name: sample
+root: ~/Repositories/github.com/xxx/sample
+
+windows:
+  - server:
+      layout: e953,192x59,0,0{96x59,0,0[96x44,0,0,8,96x14,0,45,11],95x59,97,0,10}
+      panes:
+        -
+        -
+        -
+  - logs:
+      layout: a58c,192x59,0,0{96x59,0,0,1,95x59,97,0,3}
+      panes:
+        -
+        -
