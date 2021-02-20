@@ -1,0 +1,13 @@
+orderNetworkByEthernetSlot() {
+  networksetup -ordernetworkservices "Thunderbolt Ethernet Slot  1" "Wi-Fi" "USB 10/100/1000 LAN" "Bluetooth PAN" "Thunderbolt Bridge"
+  networksetup -listallnetworkservices
+}
+
+orderNetworkByWiFi() {
+  networksetup -ordernetworkservices "Wi-Fi" "Thunderbolt Ethernet Slot  1"  "USB 10/100/1000 LAN" "Bluetooth PAN" "Thunderbolt Bridge"
+  networksetup -listallnetworkservices
+}
+
+showNetworkSetting() {
+  networksetup -listallnetworkservices
+}
