@@ -27,3 +27,5 @@ export PATH="/usr/local/opt/avr-gcc@8/bin:$PATH"
 
 export FZF_COMPLETION_TRIGGER="," # default: '**'
 export GO111MODULE=on
+
+export GIT_IGNORE_BRANCH_LIST='^master|develop|main$'
