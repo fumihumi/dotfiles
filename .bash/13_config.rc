@@ -11,3 +11,15 @@ orderNetworkByWiFi() {
 showNetworkSetting() {
   networksetup -listallnetworkservices
 }
+
+orderAudioByMBP(){
+  SwitchAudioSource -a -t output -h -s 'MacBook Proのスピーカー'
+}
+
+orderAudioByEarphone(){
+  SwitchAudioSource -a -t output -h -s 'CalDigit Thunderbolt 3 Audio'
+}
+
+showAudioSetting() {
+  SwitchAudioSource -a
+}
