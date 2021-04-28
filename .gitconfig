@@ -26,6 +26,7 @@
   cu = rev-parse --abbrev-ref HEAD
   n = diff --name-only
   diff-file-name = ! git diff master --name-only
+  original-diff = ! git -c core.pager=less diff
   force-pull = !git fetch && git reset --hard origin/$(git current-branch)
   unshallow = !git fetch --unshallow
   show-branch-root = merge-base master HEAD
