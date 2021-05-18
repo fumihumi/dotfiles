@@ -37,7 +37,7 @@
   set-remote = ! git branch --set-upstream-to=origin/$(git current-branch) $(git current-branch)
   fixup = "!f () { git rebase -i HEAD~$1;};f"
   tmp= ! git commit -m 'tmp!'
-  wip= ! git add -A && git commit -m '[ci skip] wip!'
+  wip= ! git add -A && git commit -n -m '[ci skip] wip!'
   rebase-root= ! git pull --rebase origin master
   zip = !git archive --format=zip HEAD > `git symbolic-ref --short HEAD`.zip
   ammend="! git commit --amend"
