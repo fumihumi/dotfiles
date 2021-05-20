@@ -99,12 +99,12 @@ alias o='open .' # finder
 alias c='code .' # vscode
 alias station='open /Applications/Station.app/'
 
-alias short="export PS1='\[\033[32m\] (\W)\[\033[32m\]: \[\033[00m\]'"
 alias sl='echo "進捗どうですか？"'
 
 debug_ip_address() {
   echo DEBUG_IP_ADDRESS=\"`ifconfig | grep 192 | awk '{print $2}'`\"
 }
+
 alias copy_debug_ip_address="debug_ip_address | pbcopy"
 
 alias ms="mysql.server restart"
@@ -118,3 +118,13 @@ alias show-npm-scripts="cat package.json  | jq -r '.scripts'"
 
 alias go-reshim='asdf reshim golang && export GOV=$(asdf current golang | sed  '\''s/ *(set by .*)//g'\'') && export GOROOT="$ASDFINSTALLS/golang/$GOV/go/"'
 alias cop='bebo `gin`'
+
+alias shortest="export PS1='\[\033[32m\] (\W)\[\033[32m\]: \[\033[00m\]'"
+alias short="export PS1='\[\033[31m\]$(__git_ps1)\[\033[32m\] (\W)\[\033[32m\]: \[\033[00m\]'"
+
+alias default="export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(__git_ps1)\[\033[33m\] [\t]\[\033[34m\] \n\[\033[32m\](\W)\[\033[00m\]: \[\033[00m\]'"
+# { fumihumi } (master) [15:02:06]
+# ( ~ ):
+
+alias long="export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(__git_ps1)\[\033[33m\] [\t]\[\033[34m\] \[\033[32m\]( \W )\[\033[00m\]:\[\033[00m\]'"
+# { fumihumi } (dev *) [01:22:19] ( dotfiles ):

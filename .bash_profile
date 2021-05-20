@@ -1,13 +1,4 @@
 #bashrc読み込み
-if [ -f ~/.bashrc ] ; then
-  . ~/.bashrc
-  for f in ~/.bash/*.rc; do source $f; done
-  for f in ~/.bash/works/*.rc; do source $f; done
-fi
-
-if [ -f $(which fzf) ]; then
-  . ~/.bash/12_fzf.rc
-fi
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/fumihumi/google-cloud-sdk/path.bash.inc' ]; then
@@ -55,3 +46,11 @@ if [ -f '~/anaconda3/etc/profile.d/conda.sh' ]; then
 fi
 
 complete -C /usr/local/bin/bit bit
+
+if [ -f ~/.bashrc ] ; then
+  . ~/.bashrc
+  for f in ~/.bash/*.rc; do source $f; done
+  for f in ~/.bash/works/*.rc; do source $f; done
+fi
+
+export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(__git_ps1)\[\033[33m\] [\t]\[\033[34m\] \n\[\033[32m\](\W)\[\033[00m\]: \[\033[00m\]'
