@@ -81,6 +81,7 @@
   trustExitCode = true
 [commit]
   template = ~/.git_commit_template
+  verbose = true
 [rebase]
   autostash = true
 [ghq]
