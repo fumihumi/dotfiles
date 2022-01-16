@@ -71,7 +71,7 @@
   excludesfile = ~/.gitignore_global
   editor = nvim
   safecrlf = true
-  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Monokai Extended'
+  pager = delta --plus-emph-style="#012800" --minus-emph-style="#340001" --theme='Monokai Extended'
 
 [difftool "nvimdiff"]
   cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
