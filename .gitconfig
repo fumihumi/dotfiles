@@ -36,6 +36,7 @@
   heroku-push-current = ! git push heroku +HEAD:master
   set-remote = ! git branch --set-upstream-to=origin/$(git current-branch) $(git current-branch)
   fixup = "!f () { git rebase -i HEAD~$1;};f"
+  fixit = "! git commit --amend --no-edit"
   tmp= ! git commit -m 'tmp!'
   wip= ! git add -A && git commit -n -m '[ci skip] wip!'
   rebase-root= ! git pull --rebase origin master
@@ -49,6 +50,10 @@
   update-packages="! git checkout -b ncu_`date +%Y%m%d`"
   default-branch="! git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2"
   latest-message="! git log -n 1 --pretty=format:'%s'"
+  branch-description = "! git config branch.$(git current-branch).description"
+  edit-description = "! git branch --edit-description"
+  conflicts="!git ls-files -u | cut -f 2 | sort -u"
+
 [color]
   ui = auto
   diff = auto
@@ -63,6 +68,9 @@
 [diff]
   renames = true
   tool = nvimdiff
+  colorMoved = dimmed-zebra
+  colorMovedWS = allow-indentation-change
+
 [merge]
   log = true
   tool = nvimdiff
@@ -84,6 +92,7 @@
   verbose = true
 [rebase]
   autostash = true
+  autosquash = true
 [ghq]
   root = ~/Repositories
 [fetch]
@@ -92,3 +101,6 @@
   diffFilter = delta --color-only
 [include]
   path = ~/.gitconfig_work
+[branch]
+	sort = authordate
+
