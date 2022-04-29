@@ -25,6 +25,7 @@ if has('vim_starting')
   endif
 endif
 
+set packpath^=~/.config/nvim
 packadd minpac
 
 call map(sort(split(globpath(&runtimepath, '_config/*.vim'))), { ->[execute('exec "so" v:val')] })
@@ -40,8 +41,6 @@ augroup vimrcEx
   \ exe "normal g`\"" | endif
 augroup END
 
-
-
 autocmd BufWritePre * :%s/\s\+$//ge
 
 cabbr w!! w !sudo tee > /dev/null %
@@ -56,4 +55,3 @@ set t_Co=256
 autocmd ColorScheme * highlight Constant ctermfg=207
 
 command! Soba source ~/.config/nvim/init.vim
-

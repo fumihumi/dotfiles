@@ -53,7 +53,7 @@ brew install mysql@5.7
 # brew link mysql@5.7
 # brew linkコマンドうまくいかなかったぽい？
 mysql -u root
-echo 'export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"'
+echo 'export PATH="${BREW_PREFIX}/mysql@5.7/bin:$PATH"'
 which mysql
 mysql.server start
 mysql -u root

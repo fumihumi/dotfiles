@@ -46,8 +46,6 @@ if [ -f '~/anaconda3/etc/profile.d/conda.sh' ]; then
   source ~/anaconda3/etc/profile.d/conda.sh
 fi
 
-complete -C /usr/local/bin/bit bit
-
 if [ -f ~/.bashrc ] ; then
   . ~/.bashrc
   for f in ~/.bash/*.rc; do source $f; done
