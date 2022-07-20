@@ -1,2 +1,2 @@
-echo '/usr/local/bin/bash' | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/bash
+echo '/opt/homebrew/bin/bash' | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/bash

@@ -1,4 +1,5 @@
 #bashrc読み込み
+eval $(/opt/homebrew/bin/brew shellenv)
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/fumihumi/google-cloud-sdk/path.bash.inc' ]; then
@@ -37,8 +38,8 @@ if [ -f ${BREW_PREFIX}/etc/profile.d/z.sh ]; then
 fi
 
 if [ -f $(which asdf) ]; then
-  source "/usr/local/opt/asdf/asdf.sh"
-  source "/usr/local/opt/asdf/etc/bash_completion.d/asdf.bash"
+  source "${BREW_PREFIX}/opt/asdf/asdf.sh"
+  source "${BREW_PREFIX}/opt/asdf/etc/bash_completion.d/asdf.bash"
 fi
 
 if [ -f '~/anaconda3/etc/profile.d/conda.sh' ]; then

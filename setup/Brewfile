@@ -14,14 +14,35 @@ tap "rcmdnk/file"
 tap "sanemat/font"
 tap "homebrew/cask-fonts"
 
+brew "git"
 brew "bash"
+brew "ghq"
+
+cask "karabiner-elements"
+cask "slack"
+cask "alfred"
+cask "clipy"
+
+brew "bash-completion"
+brew "asdf"
+
 brew "mas"
+
+mas "1Password 7", id: 1333542190
+
+cask "docker"
+cask "iterm2"
+brew "tmux"
+cask "alacritty"
+cask "hyper"
+brew "tig"
+brew "fzf"
+
+cask "hyperswitch"
+
 brew "memcached"
-brew "mongodb"
 brew "mysql@5.7", link: true
 brew "redis"
-brew "chromedriver"
-brew "git"
 
 brew "coreutils"
 brew "automake"
@@ -41,8 +62,6 @@ brew "gettext"
 brew "gawk"
 brew "gdb"
 brew "gnupg"
-brew "usbmuxd", args: ["HEAD"]
-brew "libimobiledevice", args: ["HEAD"]
 brew "ideviceinstaller"
 brew "imagemagick@6"
 brew "ios-deploy"
@@ -59,67 +78,35 @@ brew "vim"
 brew "watchman"
 brew "wget"
 brew "z"
-brew "facebook/fb/fbsimctl", args: ["HEAD"]
 brew "heroku/brew/heroku"
 brew "rcmdnk/file/brew-file"
 brew "sanemat/font/ricty"
 brew "fontforge"
 cask "react-native-debugger"
-cask "osxfuse"
-cask "fastlane"
 
-brew "bash-completion"
-brew "fzf"
-cask "alacritty"
-brew "ghq"
-brew "hub"
-brew "tig"
-brew "tmux"
 cask "gitify"
-cask "alfred"
 cask "gyazo"
-cask "station"
 cask "cheatsheet"
-cask "google-chrome"
-cask "google-chrome-canary"
-cask "hyperswitch"
 cask "kap"
 brew "neovim", args: ["HEAD"]
 brew "osquery"
 brew "diff-so-fancy"
 brew "curl"
 
-brew "asdf"
-
 cask "android-studio"
 cask "android-sdk"
-cask "clipy"
-cask "vagrant"
-cask "virtualbox"
-cask "google-chrome"
-cask "docker"
-cask "iterm2"
 cask "sublime-text"
 cask "dash"
 cask "ngrok"
 
 cask "bettertouchtool"
-mas "BetterSnapTool", id: 417375580
-mas "Countdown Timer Gadget", id: 573859059
-mas "iMage Tools", id: 493949693
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
-mas "LINE", id: 539883307
-## com.crowdcafe.windowmagnet (2.4.3)
-# mas "Magnet", id: 441258766 BetteSnapToolで良さそう
 
 # Email
 mas "Spark", id: 1176895641
-mas "Skitch", id: 425955336
-mas "Wunderlist", id: 410628904
 mas "Xcode", id: 497799835
-mas "1Password 7", id: 1333542190
-mas "Amphetamine", id: 937984704
+
 brew "ctags"
 cask 'font-hack-nerd-font'
 
