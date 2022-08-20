@@ -53,6 +53,7 @@
   branch-description = "! git config branch.$(git current-branch).description"
   edit-description = "! git branch --edit-description"
   conflicts="!git ls-files -u | cut -f 2 | sort -u"
+  refresh-remote="!git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'"
 
 [color]
   ui = auto
@@ -79,7 +80,7 @@
   excludesfile = ~/.gitignore_global
   editor = nvim
   safecrlf = true
-  pager = delta --show-syntax-themes "Coldark-Dark"
+  pager = delta
 
 [difftool "nvimdiff"]
   cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
