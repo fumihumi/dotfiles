@@ -25,7 +25,7 @@ cask "clipy"
 
 brew "bash-completion"
 brew "asdf"
-
+brew "gh"
 brew "mas"
 
 mas "1Password 7", id: 1333542190
@@ -84,6 +84,11 @@ brew "sanemat/font/ricty"
 brew "fontforge"
 cask "react-native-debugger"
 
+brew "fzf"
+cask "alacritty"
+brew "tig"
+brew "tmux"
+
 cask "gitify"
 cask "gyazo"
 cask "cheatsheet"
@@ -95,18 +100,25 @@ brew "curl"
 
 cask "android-studio"
 cask "android-sdk"
+
+cask "clipy"
+cask "google-chrome"
+cask "docker"
+cask "iterm2"
+
 cask "sublime-text"
 cask "dash"
 cask "ngrok"
 
 cask "bettertouchtool"
 mas "iMovie", id: 408981434
+mas "BetterSnapTool", id: 417375580
 mas "Keynote", id: 409183694
 
-# Email
-mas "Spark", id: 1176895641
-mas "Xcode", id: 497799835
+mas "Spark", id: 1176895641 # Email
 
+mas "Xcode", id: 497799835
+mas "1Password 7", id: 1333542190
 brew "ctags"
 cask 'font-hack-nerd-font'
 
