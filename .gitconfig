@@ -31,8 +31,7 @@
   unshallow = !git fetch --unshallow
   show-branch-root = merge-base master HEAD
   pbcopy = !printf "$1" | pbcopy
-  pppush = ! git push -u origin $(git current)
-  fp-push = ! git push -u origin $(git current) -f
+  fp-push  = ! git push -u origin $(git current) --force-with-lease --force-if-includes
   heroku-push-current = ! git push heroku +HEAD:master
   set-remote = ! git branch --set-upstream-to=origin/$(git current-branch) $(git current-branch)
   fixup = "!f () { git rebase -i HEAD~$1;};f"
