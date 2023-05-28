@@ -38,7 +38,7 @@ if [ -f ${BREW_PREFIX}/etc/profile.d/z.sh ]; then
 fi
 
 if [ -f $(which asdf) ]; then
-  source "${BREW_PREFIX}/opt/asdf/asdf.sh"
+  source "${BREW_PREFIX}/opt/asdf/libexec/asdf.sh"
   source "${BREW_PREFIX}/opt/asdf/etc/bash_completion.d/asdf.bash"
 fi
 
