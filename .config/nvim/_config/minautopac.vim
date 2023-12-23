@@ -11,12 +11,16 @@ function! minautopac#add(repo, ...)
   endif
 endfunction
 
-if exists('*minpac#init')
+if !exists('g:loaded_minpac')
+
+else
   call minpac#init()
 
   command! -nargs=+ -bar Plugin call minpac#add(<args>) | call minautopac#add(<args>)
 
   call minpac#add('k-takata/minpac', {'type': 'opt'})
+  " call minpac#add('nvim-treesitter/nvim-treesitter')
+
   call minpac#add('vim-jp/syntax-vim-ex')
   "for vim-lsp-settings
   call minpac#add('prabirshrestha/async.vim')

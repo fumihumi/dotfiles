@@ -14,5 +14,8 @@ dump.rdb
 elasticsearch-*/
 
 .vscode/settings.json
+.vscode/*.code-snippets
 
 *.p8
+.env.local.bk
+wt-*

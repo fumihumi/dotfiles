@@ -53,5 +53,7 @@ end
 set t_Co=256
 
 autocmd ColorScheme * highlight Constant ctermfg=207
+silent! colorscheme jellybeans
+
 
 command! Soba source ~/.config/nvim/init.vim

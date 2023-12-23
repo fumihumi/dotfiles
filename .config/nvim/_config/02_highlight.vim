@@ -25,9 +25,6 @@ if has("syntax")
     augroup END
 endif
 
-" colorscheme molokai
-" colorscheme jellybeans
-
 " ref: http://baqamore.hatenablog.com/entry/2016/11/15/220358
 " コメント中の特定の単語を強調表示する
 augroup HilightsForce

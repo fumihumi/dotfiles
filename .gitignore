@@ -15,6 +15,7 @@
 .config/nvim/sample/
 .config/xbuild
 .config/stetic
+.config/Hyper/plugins/
 
 .vscode/extensions/
 .vscode/argv.json
