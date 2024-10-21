@@ -1,4 +1,4 @@
-#bashrc読み込み
+#Bashrc読み込み
 eval $(/opt/homebrew/bin/brew shellenv)
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -32,14 +32,10 @@ if [ -f ${BREW_PREFIX}/etc/bash_completion.d ]; then
     source "${BREW_PREFIX}/etc/bash_completion.d/git-completion.bash"
 fi
 
+eval "$(~/.local/bin/mise activate bash)"
 
 if [ -f ${BREW_PREFIX}/etc/profile.d/z.sh ]; then
   source ${BREW_PREFIX}/etc/profile.d/z.sh
-fi
-
-if [ -f $(which asdf) ]; then
-  source "${BREW_PREFIX}/opt/asdf/libexec/asdf.sh"
-  source "${BREW_PREFIX}/opt/asdf/etc/bash_completion.d/asdf.bash"
 fi
 
 if [ -f '~/anaconda3/etc/profile.d/conda.sh' ]; then
@@ -53,3 +49,7 @@ if [ -f ~/.bashrc ] ; then
 fi
 
 export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(__git_ps1)\[\033[33m\] [\t]\[\033[34m\] \n\[\033[32m\](\W)\[\033[00m\]: \[\033[00m\]'
+
+if command -v rustc &> /dev/null; then
+  export RUBY_CONFIGURE_OPTS="--enable-yjit"
+fi

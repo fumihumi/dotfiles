@@ -13,3 +13,4 @@ export LANG=ja_JP.UTF-8
 export LSCOLORS=gxfxcxdxbxegedabagacad
 export GREP_COLOR='1;37;41'
 export GIT_PS1_SHOWDIRTYSTATE=true
+. "$HOME/.cargo/env"

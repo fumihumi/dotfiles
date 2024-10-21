@@ -3,7 +3,6 @@ tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "cjbassi/ytop"
 
 tap "argon/mas"
 tap "c-bata/kube-prompt"
@@ -17,32 +16,16 @@ tap "homebrew/cask-fonts"
 brew "git"
 brew "bash"
 brew "ghq"
+brew "tig"
+brew "fzf"
 
 cask "karabiner-elements"
 cask "slack"
 cask "alfred"
-cask "clipy"
 
 brew "bash-completion"
-brew "asdf"
 brew "gh"
 brew "mas"
-
-mas "1Password 7", id: 1333542190
-
-cask "docker"
-cask "iterm2"
-brew "tmux"
-cask "alacritty"
-cask "hyper"
-brew "tig"
-brew "fzf"
-
-cask "hyperswitch"
-
-brew "memcached"
-brew "mysql@5.7", link: true
-brew "redis"
 
 brew "coreutils"
 brew "automake"
@@ -63,7 +46,6 @@ brew "gawk"
 brew "gdb"
 brew "gnupg"
 brew "ideviceinstaller"
-brew "imagemagick@6"
 brew "ios-deploy"
 brew "jq"
 brew "lua"
@@ -78,37 +60,25 @@ brew "vim"
 brew "watchman"
 brew "wget"
 brew "z"
-brew "heroku/brew/heroku"
 brew "rcmdnk/file/brew-file"
 brew "sanemat/font/ricty"
 brew "fontforge"
-cask "react-native-debugger"
 
-brew "fzf"
-cask "alacritty"
-brew "tig"
-brew "tmux"
-
-cask "gitify"
-cask "gyazo"
 cask "cheatsheet"
 cask "kap"
-brew "neovim", args: ["HEAD"]
+cask "clipy"
+
 brew "osquery"
 brew "diff-so-fancy"
+brew "git-delta"
 brew "curl"
 
 cask "android-studio"
 cask "android-sdk"
 
-cask "clipy"
 cask "google-chrome"
-cask "docker"
-cask "iterm2"
+brew "neovim", args: ["HEAD"]
 
-cask "sublime-text"
-cask "dash"
-cask "ngrok"
 
 cask "bettertouchtool"
 mas "iMovie", id: 408981434
@@ -129,5 +99,18 @@ brew 'fd'
 brew 'ripgrep'
 brew 'procs'
 brew 'hyperfine'
-brew 'ytop'
 brew 'bandwhich'
+
+cask "docker"
+brew "docker-compose"
+
+cask "iterm2"
+brew "tmux"
+cask "alacritty"
+cask "hyper"
+cask "clipy"
+
+
+cask "hyperswitch"
+
+cask "sublime-text"

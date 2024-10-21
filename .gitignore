@@ -16,6 +16,12 @@
 .config/xbuild
 .config/stetic
 .config/Hyper/plugins/
+.config/flutter/
+.config/github-copilot/
+.config/iterm2/
+
+.config/zed/
+!.config/zed/settings.json
 
 .vscode/extensions/
 .vscode/argv.json

@@ -19,3 +19,5 @@ elasticsearch-*/
 *.p8
 .env.local.bk
 wt-*
+
+.mise.toml.local

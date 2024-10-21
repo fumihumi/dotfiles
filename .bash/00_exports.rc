@@ -6,26 +6,11 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-export PATH=$PATH:$HOME/.yarn/bin
-
-export PATH=$PATH:$HOME/.composer/vendor/bin
-export PATH=$PATH:$HOME/pear/bin
-
-export PATH=$PATH:$BREW_PREFIX/icu4c/bin
-export PATH=$PATH:$BREW_PREFIX/libarchive/bin
-
-# https://github.com/miyagaw61/gists
-export GIT_TOKEN_FILE=~/.config/.GIT_TOKEN_FILE # gist token
-export PATH=$PATH:/Users/fumihumi/Repositories/github.com/miyagaw61/gists
-
-export PKG_CONFIG_PATH="${BREW_PREFIX}/imagemagick@6/lib/pkgconfig"
-
-export PATH="$HOME/.fastlane/bin:$PATH"
-
-export PATH="${BREW_PREFIX}/imagemagick@6/bin:$PATH"
-export PATH="${BREW_PREFIX}/avr-gcc@8/bin:$PATH"
-
 export FZF_COMPLETION_TRIGGER="," # default: '**'
 export GO111MODULE=on
 
 export GIT_IGNORE_BRANCH_LIST='^master|develop|main$'
+
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+export PATH="$HOME/.cargo/bin:$PATH"

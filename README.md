@@ -1,10 +1,6 @@
 ## dotfiles
 
 ```bash
-# 開発するのに必須なやつたち
-
-# xcodeいれなきゃだめっぽいけどツールだけ入れたい時はこれ
-# Xcode重いしめんどくさいから
 xcode-select --install
 
 # home brew install
@@ -12,58 +8,39 @@ xcode-select --install
 ```
 
 ```bash
-brew install ghq
-git config --global ghq.root ~/Repositories
-ghq get git@github.com:fumihumi/dotfiles.git
+# setup for ${any} languages
+
+# using 'mise'
+# ref: https://mise.jdx.dev/getting-started.html
 ```
 
 ```bash
 ssh-keygen -t rsa -b 4096 -C '${fumihumi}@${コメント}'
 pbcopy < github_id_rsa.pub
 ssh -T git@github.com
-# うまくできないときは ssh-key関連でうまくいってないのかも
+# troubleshooting ...
 # eval `ssh-agent`
 # ssh-add -K github_id_rsa
-
-# docker install
-# docker toolboxのがいっぱい入ってるけどそんなに使わないし。↓で良さそう
-brew cask install docker
-brew install docker-compose
 ```
 
 ```bash
-$ cd dotfiles
-$ cp .gitconfig ~/.gitconfig
-# 改めてghq経由でDotfilesRepoをクローンするため && dotfiles更新する場合これをする必要がある
-$ cd setup
-$ brew bundle
-$ sh *.sh
-```
+brew install ghq
+git config --global ghq.root ~/Repositories
+ghq get git@github.com:fumihumi/dotfiles.git
+cd dotfiles
+CURRENT_DIR=$(pwd)
+ln -s $CURRENT_DIR/.gitconfig ~/.gitconfig
+ln -s $CURRENT_DIR/.gitignore_global ~/.gitignore_global
 
-```bash
-# setup for ${any} languages
-
-# using 'asdf'
-# https://github.com/asdf-vm/asdf みてよしなに対応して。
-
-# MEMO mysql。ローカルマシンに載せるのしんどいしdockerにしても良い気がしてきてrう
-# mysql install
-# at-markでversion指定しない方が良さそうな気もするけど、どうだろう。
-brew install mysql@5.7
-# brew link mysql@5.7
-# brew linkコマンドうまくいかなかったぽい？
-mysql -u root
-echo 'export PATH="${BREW_PREFIX}/mysql@5.7/bin:$PATH"'
-which mysql
-mysql.server start
-mysql -u root
-
+cd setup
+brew bundle
+sh *.sh
 ```
 
 ### MissionControl の設定いじる
 
 > 「最新の使用状況に基づいて操作スペースを自動的に並び替える」のチェックを外す
-> [qiita: Mission Control のデスクトップの順番が勝手に変わる件についての対処法](https://qiita.com/ayies128/items/f036ba7d89444b3b71f0)
+> [ref: Mission Control のデスクトップの順番が勝手に変わる件についての対処法](https://qiita.com/ayies128/items/f036ba7d89444b3b71f0)
 
 キーボード > ショートカット > MissionControl >
 
@@ -74,11 +51,9 @@ mysql -u root
 
 - ライブ変換 off
 
-
-```
-{ fumihumi } (.ssh): head config
+```shell
+# { fumihumi } (.ssh): head config
 Host *
   UseKeychain yes
   AddKeysToAgent yes
-
 ```
