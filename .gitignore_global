@@ -9,9 +9,6 @@
 /vendor/bundle
 dump.rdb
 .solargraph.yml
-.tool-versions
-.tabnineignore
-elasticsearch-*/
 
 .vscode/settings.json
 .vscode/*.code-snippets

@@ -19,12 +19,13 @@
 .config/flutter/
 .config/github-copilot/
 .config/iterm2/
+.config/jgit/
+.config/op/
 
 .config/zed/
 !.config/zed/settings.json
 
 .vscode/extensions/
 .vscode/argv.json
-
 
 .bash/works

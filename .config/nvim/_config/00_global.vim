@@ -1,6 +1,6 @@
 set number
-set cursorline
-" set cursorcolumn "コレ入れるとだいぶ重くなる
+" set cursorline
+" " set cursorcolumn "コレ入れるとだいぶ重くなる
 set laststatus=2   " ステータス行を常に表示
 set cmdheight=2    " メッセージ表示欄を2行確保
 set showmatch      " 対応する括弧を強調表示
@@ -56,4 +56,3 @@ set history=1000 "" コマンドラインの履歴を1000件保存する
 ""ビープ音すべてを無効にする
 set visualbell t_vb=
 set fileencoding=utf-8
-

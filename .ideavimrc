@@ -1,8 +1,4 @@
-" 検索するときに大文字小文字を区別しない
-set ignorecase
-
-" 検索時に大文字を含んでいたら大/小を区別
-set smartcase
+" 検索するときに大文字小文字を区別しない set ignorecase " 検索時に大文字を含んでいたら大/小を区別 set smartcase
 
 " インクリメンタル検索 (検索ワードの最初の文字を入力した時点で検索が開始)
 set incsearch
@@ -54,8 +50,8 @@ set softtabstop=2
 " ------------------------------------
 
 "x キー削除でデフォルトレジスタに入れない
-nnoremap x "_x
-vnoremap x "_x
+nnoremap x "_ x
+vnoremap x "_ x
 
 " ヤンクでクリップボードにコピー
 noremap "+y "*y
@@ -64,3 +60,25 @@ noremap "+p "*p
 noremap "+P "*P
 noremap <C-S-c> "*y
 noremap <C-S-v> "*P
+
+"
+let mapleader = "\<Space>"
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+nmap ss :split<Return><C-w>w
+nmap sv :vsplit<Return><C-w>w
+
+nmap <Leader>w [window]
+nnoremap [window]h <C-w>h
+nnoremap [window]j <C-w>j
+nnoremap [window]k <C-w>k
+nnoremap [window]l <C-w>l
+
+" 逕ｻ髱｢繝ｪ繧ｵ繧､繧ｺ
+nnoremap [window]L <C-w>>
+nnoremap [window]H <C-w><
+nnoremap [window]J <C-w>+
+nnoremap [window]K <C-w>-
+
+set visualbell
+set noerrorbells

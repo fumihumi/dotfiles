@@ -59,7 +59,7 @@ bind refs    w      @hub browse -- compare/%(branch)?expand=1
 # ref: https://qiita.com/sfus/items/063797a1dd8fdc7d032f
 # S で stash save
 bind generic S      ?git stash save "%(prompt Enter stash comment: )"
-bind generic T      !git tmp
+# bind generic T      !git tmp
 
 # Y で stash pop
 bind diff    Y      ?git stash pop %(stash)

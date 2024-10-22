@@ -27,14 +27,22 @@ ssh -T git@github.com
 brew install ghq
 git config --global ghq.root ~/Repositories
 ghq get git@github.com:fumihumi/dotfiles.git
+
 cd dotfiles
 CURRENT_DIR=$(pwd)
 ln -s $CURRENT_DIR/.gitconfig ~/.gitconfig
 ln -s $CURRENT_DIR/.gitignore_global ~/.gitignore_global
 
-cd setup
-brew bundle
-sh *.sh
+$ cd setup
+$ brew bundle
+$ sh *.sh
+```
+
+```bash
+# setup for ${any} languages
+
+# using 'mise'
+# https://github.com/jdx/mise みてよしなに対応して。
 ```
 
 ### MissionControl の設定いじる
@@ -56,4 +64,5 @@ sh *.sh
 Host *
   UseKeychain yes
   AddKeysToAgent yes
+
 ```

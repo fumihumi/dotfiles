@@ -27,8 +27,10 @@
   n = diff --name-only
   diff-file-name = ! git diff master --name-only
   original-diff = ! git -c core.pager=less diff
+  original-show = ! git -c core.pager=less show
   force-pull = !git fetch && git reset --hard origin/$(git current-branch)
   unshallow = !git fetch --unshallow
+  unshallow-config = !git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
   show-branch-root = merge-base master HEAD
   pbcopy = !printf "$1" | pbcopy
   fp-push  = ! git push -u origin $(git current) --force-with-lease --force-if-includes
@@ -40,7 +42,7 @@
   wip= ! git add -A && git commit -n -m '[ci skip] wip!'
   rebase-root= ! git pull --rebase origin master
   zip = !git archive --format=zip HEAD > `git symbolic-ref --short HEAD`.zip
-  ammend="! git commit --amend"
+  amend="! git commit --amend"
   last="! git show HEAD"
   list-untracked-file="!git ls-files --others --exclude-standard"
   delete-merged-branches = "!f () { git branch --merged | egrep -v '\\*|master|develop' | xargs git branch -d; }; f"
@@ -53,6 +55,14 @@
   edit-description = "! git branch --edit-description"
   conflicts="!git ls-files -u | cut -f 2 | sort -u"
   refresh-remote="!git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'"
+  fixup = "!f () { git rebase -i HEAD~$1;};f"
+  short-diff="!f() { git log --no-merges origin/$1..origin/$2 --pretty=format:'%an:%h:%ad %s' --date=short; };f"
+  recent="!f() { gh pr list --search \"created:>=`date -v-1d +%Y-%m-%d`\"; };f"
+  pr-review="!f() { gh pr list --search 'is:open user-review-requested:@me';};f"
+  review-pr="! git pr-review"
+  prs="!f() { gh pr list --search \"is:open label:$1\"; }; f"
+	merged-branch = !bash -c 'git branch --merged | grep -vE \"^\\*|$GIT_IGNORE_BRANCH_LIST\"'
+	prune-merged-branch = !bash -c 'git branch --merged | grep -vE \"^\\*|$GIT_IGNORE_BRANCH_LIST\" | xargs -r git branch -d'
 
 [color]
   ui = auto
@@ -67,7 +77,8 @@
   prune = true
 [diff]
   renames = true
-  tool = nvimdiff
+  # tool = nvimdiff
+  tool = sdiff
   colorMoved = dimmed-zebra
   colorMovedWS = allow-indentation-change
 
@@ -92,7 +103,8 @@
   verbose = true
 [rebase]
   autostash = true
-  autosquash = true
+	autosquash = true
+	abbreviateCommands = true
 [ghq]
   root = ~/Repositories
 [fetch]
@@ -104,3 +116,16 @@
 [branch]
 	sort = authordate
 
+[secrets]
+	providers = git secrets --aws-provider
+	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+	patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+  patterns = (\"|')?RSA PRIVATE KEY(\"|')?
+	allowed = AKIAIOSFODNN7EXAMPLE
+	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
