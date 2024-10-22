@@ -1,0 +1,40 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-b s": "pane::SplitRight",
+      "ctrl-b |": "pane::SplitRight",
+      "ctrl-b v": "pane::SplitDown",
+      "ctrl-b --": "pane::SplitDown",
+      "ctrl-b h": [
+        "workspace::ActivatePaneInDirection",
+        "Left"
+      ],
+      "ctrl-b l": [
+        "workspace::ActivatePaneInDirection",
+        "Right"
+      ],
+      "ctrl-b k": [
+        "workspace::ActivatePaneInDirection",
+        "Up"
+      ],
+      "ctrl-b j": [
+        "workspace::ActivatePaneInDirection",
+        "Down"
+      ],
+      "cmd-;": "editor::GoToDefinition"
+    }
+  },
+  {
+    "context": "coding supports",
+    "bindings": {
+      "ctrl-x x": "editor::ShowCompletions"
+    }
+  },
+  {
+    "context": "Editor shortcuts",
+    "bindings": {
+      "cmd-j": "terminal_panel::ToggleFocus"
+    }
+  },
+]

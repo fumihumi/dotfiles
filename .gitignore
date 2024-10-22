@@ -22,8 +22,8 @@
 .config/jgit/
 .config/op/
 
-.config/zed/
-!.config/zed/settings.json
+.config/zed/*
+!.config/zed/*.json
 
 .vscode/extensions/
 .vscode/argv.json
