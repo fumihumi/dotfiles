@@ -29,3 +29,6 @@
 .vscode/argv.json
 
 .bash/works
+.bash/100_pc.rc
+.bash/works/
+!.bash/works/.gitkeep

@@ -19,6 +19,6 @@ do
   ln -snfv ${DOT_DIRECTORY}/${f} ${HOME}/${f}
 done
 
-ln -snfv ~/Repositories/github.com/fumihumi/dotfiles/.config/ ~/.config
+ln -snfv ~/Repositories/github.com/fumihumi/dotfiles/.config/ ~
 
 echo 'liked dotfiles complete!'

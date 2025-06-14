@@ -59,6 +59,20 @@ $ sh *.sh
 
 - ライブ変換 off
 
+## デスクトップとDock
+
+-　> ホットコーナー
+
+- 左上 > スクリーンセーバ
+- 右上 > 通知センター
+- 右上 > スリープ
+- 右下 > Mission Control
+
+### MissionControl
+
+> 「最新の使用状況に基づいて操作スペースを自動的に並び替える」のチェックを外す
+> [ref: Mission Control のデスクトップの順番が勝手に変わる件についての対処法](https://qiita.com/ayies128/items/f036ba7d89444b3b71f0)
+
 ```shell
 # { fumihumi } (.ssh): head config
 Host *
@@ -66,3 +80,10 @@ Host *
   AddKeysToAgent yes
 
 ```
+
+## Tools
+
+- BetterTouchTools
+- Karabiner-Elements
+- AltTab
+- alfred

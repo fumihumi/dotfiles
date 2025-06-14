@@ -6,6 +6,7 @@
 .yardoc/*
 .pryrc
 .tmp
+tmp/copilot
 /vendor/bundle
 dump.rdb
 .solargraph.yml
@@ -17,4 +18,10 @@ dump.rdb
 .env.local.bk
 wt-*
 
-.mise.toml.local
+mise.toml.local
+
+.github/.my-prompt.md
+
+docs/.copilot
+
+repomix-output.xml

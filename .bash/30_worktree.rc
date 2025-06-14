@@ -1,0 +1,24 @@
+# for git worktree management
+
+# cd to worktree (created by phantom) directory
+cw () {
+  local target_dir=$(phantom where --fzf)
+  if [ -n "$target_dir" ]; then
+    cd "$target_dir"
+  else
+    echo "No worktree selected or found."
+  fi
+}
+
+# Change Directory to the root of the current git worktree repository
+cwr () {
+  # worktree の先頭、が多分 root
+  local worktree=$(git worktree list | head -n 1 | awk '{print $1}')
+
+  if [ -n "$worktree" ]; then
+    cd "$worktree"
+    echo "Changed ${PWD}"
+  else
+    echo "No worktree found."
+  fi
+}

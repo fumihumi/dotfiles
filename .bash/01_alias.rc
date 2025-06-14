@@ -106,9 +106,7 @@ alias station='open /Applications/Station.app/'
 
 alias sl='echo "進捗どうですか？"'
 
-debug_ip_address() {
-  echo DEBUG_IP_ADDRESS=\"`ifconfig | grep 192 | awk '{print $2}'`\"
-}
+alias zed="open -a /Applications/Zed.app -n"
 
 alias copy_debug_ip_address="debug_ip_address | pbcopy"
 
@@ -134,3 +132,4 @@ alias long="export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(__git_ps1)\[\033[33m\] [
 # { fumihumi } (dev *) [01:22:19] ( dotfiles ):
 
 alias mdview='glow'
+

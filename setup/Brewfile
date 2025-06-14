@@ -1,7 +1,5 @@
 # setup
 tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
 tap "homebrew/services"
 
 tap "argon/mas"
@@ -11,7 +9,6 @@ tap "heroku/brew"
 tap "neovim/neovim"
 tap "rcmdnk/file"
 tap "sanemat/font"
-tap "homebrew/cask-fonts"
 
 brew "git"
 brew "bash"
@@ -20,7 +17,6 @@ brew "tig"
 brew "fzf"
 
 cask "karabiner-elements"
-cask "slack"
 cask "alfred"
 
 brew "bash-completion"
@@ -43,7 +39,6 @@ brew "crf++"
 brew "freetype"
 brew "gettext"
 brew "gawk"
-brew "gdb"
 brew "gnupg"
 brew "ideviceinstaller"
 brew "ios-deploy"
@@ -61,14 +56,13 @@ brew "watchman"
 brew "wget"
 brew "z"
 brew "rcmdnk/file/brew-file"
-brew "sanemat/font/ricty"
 brew "fontforge"
 
 cask "cheatsheet"
 cask "kap"
 cask "clipy"
 
-brew "osquery"
+cask "osquery"
 brew "diff-so-fancy"
 brew "git-delta"
 brew "curl"
@@ -77,32 +71,29 @@ cask "android-studio"
 cask "android-sdk"
 
 cask "google-chrome"
+cask "google-chrome@canary"
 brew "neovim", args: ["HEAD"]
 
 
 cask "bettertouchtool"
 mas "iMovie", id: 408981434
-mas "BetterSnapTool", id: 417375580
 mas "Keynote", id: 409183694
 
 mas "Spark", id: 1176895641 # Email
 
-mas "Xcode", id: 497799835
-mas "1Password 7", id: 1333542190
 brew "ctags"
 cask 'font-hack-nerd-font'
 
 # 各種便利コマンド系
 brew 'bat'
-brew 'exa'
 brew 'fd'
 brew 'ripgrep'
 brew 'procs'
 brew 'hyperfine'
 brew 'bandwhich'
 
-cask "docker"
-brew "docker-compose"
+#  cask "docker"
+#  brew "docker-compose"
 
 cask "iterm2"
 brew "tmux"
@@ -110,7 +101,7 @@ cask "alacritty"
 cask "hyper"
 cask "clipy"
 
-
-cask "hyperswitch"
-
+cask "alt-tab"
 cask "sublime-text"
+
+mas "Amphetamine", id: 937984704

@@ -14,6 +14,7 @@ fi
 if [ -f '~/.bash/completion/exercism_completion.bash' ]; then
   source '~/.bash/completion/exercism_completion.bash';
 fi
+eval "$(~/.local/bin/mise activate bash)"
 
 # docker fzf
 if [ -f '$(ghq root)/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash' ]; then
@@ -22,33 +23,41 @@ fi
 
 BREW_PREFIX=$(brew --prefix)
 
-if [ -f ${BREW_PREFIX}/etc/bash_completion ]; then
-    source ${BREW_PREFIX}/etc/bash_completion
+if [[ -f "$BREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
+  source "$BREW_PREFIX/etc/profile.d/bash_completion.sh"
 fi
-
-#CHECK https://qiita.com/koyopro/items/3fce94537df2be6247a3
-if [ -f ${BREW_PREFIX}/etc/bash_completion.d ]; then
-    source "${BREW_PREFIX}/etc/bash_completion.d/git-prompt.sh"
-    source "${BREW_PREFIX}/etc/bash_completion.d/git-completion.bash"
-fi
-
-eval "$(~/.local/bin/mise activate bash)"
 
 if [ -f ${BREW_PREFIX}/etc/profile.d/z.sh ]; then
-  source ${BREW_PREFIX}/etc/profile.d/z.sh
-fi
-
-if [ -f '~/anaconda3/etc/profile.d/conda.sh' ]; then
-  source ~/anaconda3/etc/profile.d/conda.sh
+  source $BREW_PREFIX/etc/profile.d/z.sh
 fi
 
 if [ -f ~/.bashrc ] ; then
   . ~/.bashrc
   for f in ~/.bash/*.rc; do source $f; done
+
+  if [ -d ~/.bash/completion.d ]; then
+    for c in ~/.bash/completion.d/*; do source "$c"; done
+  fi
+
   for f in ~/.bash/works/*.rc; do source $f; done
 fi
 
-export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(__git_ps1)\[\033[33m\] [\t]\[\033[34m\] \n\[\033[32m\](\W)\[\033[00m\]: \[\033[00m\]'
+is_git_worktree() {
+  if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]; then
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -n "$toplevel" ] && [ -f "$toplevel/.git" ]; then
+      echo " (worktree)"
+    fi
+  fi
+}
+
+git_prompt_string() {
+  if type __git_ps1 &>/dev/null; then
+    echo "$(__git_ps1)$(is_git_worktree)"
+  fi
+}
+
+export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(git_prompt_string)\[\033[33m\] [\t]\[\033[34m\] \n\[\033[32m\](\W)\[\033[00m\]: \[\033[00m\]'
 
 if command -v rustc &> /dev/null; then
   export RUBY_CONFIGURE_OPTS="--enable-yjit"
