@@ -1,12 +1,15 @@
+# Bash completion for phantom
+# Load with: eval "$(phantom completion bash)"
+
 _phantom_list_worktrees() {
-  phantom list --names 2>/dev/null || true
+    phantom list --names 2>/dev/null || true
 }
 
 _phantom_completion() {
     local cur prev words cword
     _init_completion || return
 
-    local commands="create attach list where delete exec shell version completion"
+    local commands="create attach list where delete exec shell version completion mcp"
     local global_opts="--help --version"
 
     if [[ ${cword} -eq 1 ]]; then
@@ -29,8 +32,12 @@ _phantom_completion() {
                     _filedir
                     return 0
                     ;;
+                --base)
+                    # Don't complete anything specific for base (branch/commit)
+                    return 0
+                    ;;
                 *)
-                    local opts="--shell --exec --tmux --tmux-vertical --tmux-horizontal --copy-file"
+                    local opts="--shell --exec --tmux --tmux-vertical --tmux-horizontal --copy-file --base"
                     COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                     return 0
                     ;;
@@ -84,7 +91,7 @@ _phantom_completion() {
             ;;
         exec)
             case "${prev}" in
-                --tmux|-t|--tmux-vertical|--tmux-v|--tmux-horizontal|--tmux-h)
+                --tmux|-t|--tmux-vertical|--tmux-horizontal)
                     # After tmux options, expect worktree name
                     local worktrees=$(_phantom_list_worktrees)
                     COMPREPLY=( $(compgen -W "${worktrees}" -- "${cur}") )
@@ -109,7 +116,7 @@ _phantom_completion() {
             ;;
         shell)
             case "${prev}" in
-                --tmux|-t|--tmux-vertical|--tmux-v|--tmux-horizontal|--tmux-h)
+                --tmux|-t|--tmux-vertical|--tmux-horizontal)
                     # After tmux options, expect worktree name
                     local worktrees=$(_phantom_list_worktrees)
                     COMPREPLY=( $(compgen -W "${worktrees}" -- "${cur}") )
@@ -134,6 +141,11 @@ _phantom_completion() {
             ;;
         version)
             # No completion for version command
+            return 0
+            ;;
+        mcp)
+            local actions="serve"
+            COMPREPLY=( $(compgen -W "${actions}" -- "${cur}") )
             return 0
             ;;
         *)

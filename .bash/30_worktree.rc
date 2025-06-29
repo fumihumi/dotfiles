@@ -22,3 +22,8 @@ cwr () {
     echo "No worktree found."
   fi
 }
+
+# Show root git dir
+wr() {
+  dirname $(git rev-parse --git-common-dir)
+}

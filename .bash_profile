@@ -1,20 +1,9 @@
-#Bashrc読み込み
 eval $(/opt/homebrew/bin/brew shellenv)
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/fumihumi/google-cloud-sdk/path.bash.inc' ]; then
-  source '/Users/fumihumi/google-cloud-sdk/path.bash.inc';
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/fumihumi/google-cloud-sdk/completion.bash.inc' ]; then
-  source '/Users/fumihumi/google-cloud-sdk/completion.bash.inc';
-fi
-
-if [ -f '~/.bash/completion/exercism_completion.bash' ]; then
-  source '~/.bash/completion/exercism_completion.bash';
-fi
 eval "$(~/.local/bin/mise activate bash)"
+
+if [ -f ~/.bashrc ] ; then
+  . ~/.bashrc
+fi
 
 # docker fzf
 if [ -f '$(ghq root)/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash' ]; then
@@ -31,16 +20,14 @@ if [ -f ${BREW_PREFIX}/etc/profile.d/z.sh ]; then
   source $BREW_PREFIX/etc/profile.d/z.sh
 fi
 
-if [ -f ~/.bashrc ] ; then
-  . ~/.bashrc
-  for f in ~/.bash/*.rc; do source $f; done
+# NOTE: after bash_completion.sh
+for f in ~/.bash/*.rc; do source $f; done
 
-  if [ -d ~/.bash/completion.d ]; then
-    for c in ~/.bash/completion.d/*; do source "$c"; done
-  fi
-
-  for f in ~/.bash/works/*.rc; do source $f; done
+if [ -d ~/.bash/completion.d ]; then
+  for c in ~/.bash/completion.d/*; do source "$c"; done
 fi
+
+for f in ~/.bash/works/*.rc; do source $f; done
 
 is_git_worktree() {
   if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]; then

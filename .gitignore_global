@@ -25,3 +25,12 @@ mise.toml.local
 docs/.copilot
 
 repomix-output.xml
+!docs/repomix-output.xml
+
+.claude/works/*.md
+
+.pr_dummy.md
+.pr_description.md
+.pr_review.md
+
+CLAUDE.local.md

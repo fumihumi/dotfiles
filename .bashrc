@@ -5,9 +5,14 @@ if [ "$TERM" == xterm ]; then
     export TERM=xterm-color
 fi
 
-PATH="$PATH:/Users/fumihumi/.mos/bin"
+PATH="$PATH:~/.mos/bin"
 
-export EDITOR="vim"
+# .bash/bin フォルダのスクリプトをコマンドとして利用できるようにPATHに追加
+export PATH="$HOME/Repositories/github.com/fumihumi/dotfiles/.bash/bin:$PATH"
+
+export EDITOR=nvim
+export TIG_EDITOR=nvim
+export GIT_EDITOR=nvim
 export PROMPT_COMMAND='history -a; history -r'
 export LANG=ja_JP.UTF-8
 export LSCOLORS=gxfxcxdxbxegedabagacad

@@ -1,0 +1,5 @@
+# ref: https://github.com/rupa/z
+
+if ghq list | grep -q 'rupa/z'; then
+  . "$(ghq root)/github.com/rupa/z/z.sh"
+fi
