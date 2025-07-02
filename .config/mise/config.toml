@@ -1,0 +1,8 @@
+[tools]
+deno = "2.2.11"
+go = "latest"
+node = "23.0.0"
+pnpm = "latest"
+python = "3.13.0"
+ruby = "3.5.0-preview1"
+uv = "0.7.13"

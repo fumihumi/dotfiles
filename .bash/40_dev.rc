@@ -1,0 +1,6 @@
+
+local-phantom() {
+  node "$(ghq root)/github.com/fumihumi/phantom/packages/cli/dist/phantom.js" "$@"
+}
+
+export AGENT_DOCS_PATH="~/Repositories/github.com/fumihumi/agent-docs/"

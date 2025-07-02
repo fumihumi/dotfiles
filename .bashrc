@@ -20,3 +20,8 @@ export GREP_COLOR='1;37;41'
 export GIT_PS1_SHOWDIRTYSTATE=true
 
 . "$HOME/.cargo/env"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/takafumi.suzuki/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+alias claude="/Users/takafumi.suzuki/.claude/local/claude"

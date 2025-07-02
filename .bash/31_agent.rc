@@ -1,0 +1,8 @@
+
+# ~/Repositories/github.com/fumihumi/agent-docs を agent-docs コマンドで参照するための設定
+# cd agent-docs で ~/Repositories/github.com/fumihumi/agent-docs に移動できるようにする
+# ls agent-docs で ~/Repositories/github.com/fumihumi/agent-docs の内容を表示できるようにする
+
+export AGENT_DOCS_DIR=~/Repositories/github.com/fumihumi/agent-docs
+
+alias cd-agent-docs='cd $AGENT_DOCS_DIR'

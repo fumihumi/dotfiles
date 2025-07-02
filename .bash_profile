@@ -49,3 +49,9 @@ export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(git_prompt_string)\[\033[33m\] [\t]\
 if command -v rustc &> /dev/null; then
   export RUBY_CONFIGURE_OPTS="--enable-yjit"
 fi
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/takafumi.suzuki/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
