@@ -1,0 +1,4 @@
+# Bash completion loader for git-diff-summary
+if command -v git-diff-summary &> /dev/null; then
+    eval "$(git-diff-summary completion 2>/dev/null || true)"
+fi

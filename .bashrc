@@ -25,3 +25,4 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 export PATH="/Users/takafumi.suzuki/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 alias claude="/Users/takafumi.suzuki/.claude/local/claude"
+

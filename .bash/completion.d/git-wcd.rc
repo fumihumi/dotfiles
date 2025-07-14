@@ -1,0 +1,5 @@
+# Bash completion loader for git-wcd
+GIT_TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../src/git-tools" && pwd)"
+if [[ -f "${GIT_TOOLS_DIR}/git-wcd/completion.bash" ]]; then
+    source "${GIT_TOOLS_DIR}/git-wcd/completion.bash"
+fi
