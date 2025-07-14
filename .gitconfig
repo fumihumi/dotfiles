@@ -64,6 +64,8 @@
   prs="!f() { gh pr list --search \"is:open label:$1\"; }; f"
 	merged-branch = !bash -c 'git branch --merged | grep -vE \"^\\*|$GIT_IGNORE_BRANCH_LIST\"'
 	prune-merged-branch = !bash -c 'git branch --merged | grep -vE \"^\\*|$GIT_IGNORE_BRANCH_LIST\" | xargs -r git branch -d'
+  wcd = "!f() { echo \"Use: cd \\\"$(git wcd-path $1)\\\"\"; }; f"
+  wcd-path = "!bash -c 'exec git-wcd \"$@\"' --"
 
 [color]
   ui = auto

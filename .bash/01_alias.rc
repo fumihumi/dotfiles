@@ -133,3 +133,6 @@ alias long="export PS1='\[\033[34m\]{ \u }\[\033[31m\]$(__git_ps1)\[\033[33m\] [
 
 alias mdview='glow'
 
+alias rm='trash'
+
+alias gq='gwq'

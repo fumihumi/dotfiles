@@ -5,19 +5,31 @@ if [ -f ~/.bashrc ] ; then
   . ~/.bashrc
 fi
 
+
+GHQ_ROOT=$(ghq root)
+
 # docker fzf
-if [ -f '$(ghq root)/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash' ]; then
-  source $(ghq root)/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash
+if [ -f "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash" ]; then
+  source "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash"
 fi
 
 BREW_PREFIX=$(brew --prefix)
 
-if [[ -f "$BREW_PREFIX/etc/profile.d/bash_completion.sh" ]]; then
-  source "$BREW_PREFIX/etc/profile.d/bash_completion.sh"
+
+if [ -d "$BREW_PREFIX/etc/profile.d" ]; then
+  for f in "$BREW_PREFIX"/etc/profile.d/*.sh; do
+    if [ -f "$f" ]; then
+      source "$f"
+    fi
+  done
 fi
 
-if [ -f ${BREW_PREFIX}/etc/profile.d/z.sh ]; then
-  source $BREW_PREFIX/etc/profile.d/z.sh
+if [ -d "$BREW_PREFIX/etc/bash_completion.d" ]; then
+  for f in "$BREW_PREFIX"/etc/bash_completion.d/*.sh; do
+    if [ -f "$f" ]; then
+      source "$f"
+    fi
+  done
 fi
 
 # NOTE: after bash_completion.sh

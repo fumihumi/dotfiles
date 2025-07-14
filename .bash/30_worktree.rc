@@ -1,7 +1,32 @@
 # for git worktree management
 
+# Git worktree directory change function
+gwcd() {
+  if [[ $# -eq 0 ]]; then
+    # Interactive mode
+    local target_path=$(git wcd-path)
+    if [[ -n "$target_path" ]]; then
+      cd "$target_path"
+      echo "Changed to worktree: $(basename "$target_path")"
+    fi
+  else
+    # Direct specification
+    local target_path=$(git wcd-path "$1")
+    if [[ -n "$target_path" ]]; then
+      cd "$target_path"
+      echo "Changed to worktree: $1"
+    fi
+  fi
+}
+
+alias cw='gwcd'
+
+wl() {
+  gwq list
+}
+
 # cd to worktree (created by phantom) directory
-cw () {
+phantom-cw () {
   local target_dir=$(phantom where --fzf)
   if [ -n "$target_dir" ]; then
     cd "$target_dir"
