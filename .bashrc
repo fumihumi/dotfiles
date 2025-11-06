@@ -26,3 +26,7 @@ export PATH="/Users/takafumi.suzuki/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 alias claude="/Users/takafumi.suzuki/.claude/local/claude"
 
+# gw shell integration
+eval "$(gw shell-integration --show-script --shell=bash)"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"

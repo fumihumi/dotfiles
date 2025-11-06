@@ -88,6 +88,7 @@
 [merge]
   log = true
   tool = nvimdiff
+  conflictStyle = zdiff3
 [core]
   quotepath = false
   excludesfile = ~/.gitignore_global

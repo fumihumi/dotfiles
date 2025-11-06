@@ -34,3 +34,5 @@ repomix-output.xml
 .pr_review.md
 
 CLAUDE.local.md
+.vscode/copilot-instructions-local.md
+tmp/local

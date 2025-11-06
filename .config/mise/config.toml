@@ -6,3 +6,6 @@ pnpm = "latest"
 python = "3.13.0"
 ruby = "3.5.0-preview1"
 uv = "0.7.13"
+
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]
