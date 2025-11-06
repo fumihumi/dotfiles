@@ -9,6 +9,7 @@ PATH="$PATH:~/.mos/bin"
 
 # .bash/bin フォルダのスクリプトをコマンドとして利用できるようにPATHに追加
 export PATH="$HOME/Repositories/github.com/fumihumi/dotfiles/.bash/bin:$PATH"
+export PATH="$HOME/Repositories/github.com/fumihumi/dotfiles/.bash/works/bin:$PATH"
 
 export EDITOR=nvim
 export TIG_EDITOR=nvim

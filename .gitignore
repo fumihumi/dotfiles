@@ -30,5 +30,5 @@
 
 .bash/works
 .bash/100_pc.rc
-.bash/works/
 !.bash/works/.gitkeep
+!.bash/works/bin/.gitkeep
