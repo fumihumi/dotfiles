@@ -6,7 +6,10 @@
       "Bash(find:*)",
       "Bash(ls:*)",
       "Bash(grep:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(gwq list:*)",
+      "Bash(git-wcp:*)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": []
   }

@@ -16,12 +16,12 @@ Git サブコマンドコレクション - 日常的な Git 操作を効率化�
 git diff-summary origin/main origin/develop
 ```
 
-### git-cp
+### git-wcp
 
 Git worktree 間でファイルをコピー
 
 ```bash
-git cp feature-branch:src/config.json @:src/config.json
+git wcp feature-branch:src/config.json @:src/config.json
 ```
 
 ### git-wcd
@@ -104,9 +104,10 @@ git-tools/
 │   ├── go.mod
 │   ├── main.go
 │   └── README.md
-├── git-cp/               # Bashスクリプト例
-│   ├── git-cp.sh
-│   └── completion.bash
+├── git-wcp/              # Go製ツール（worktree間コピー）
+│   ├── go.mod
+│   ├── main.go
+│   └── main_test.go
 └── git-wcd/
     ├── git-wcd.sh
     └── completion.bash

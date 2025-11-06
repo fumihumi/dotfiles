@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Show connected(or disconnected) Bluetooth devices and connect to selected ones.
+set -euo pipefail
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "missing: $1"; exit 1; }; }
+need blueutil; need fzf; need jq
+
+# 取得：ペアリング済み（接続済み/未接続 両方）
+devices_json="$(blueutil --paired --format json)"
+
+# fzf に渡す候補（未接続を上、接続中を下に）
+# 表示:  [○/×]  名前 (種別)   アドレス
+# キー:  アドレス（最後に取り出す用）
+menu_lines="$(
+  jq -r '
+    sort_by(.connected) | reverse |  # 未接続(false)を先頭へ
+    .[] | "\(
+            if .connected then "[●]" else "[ ]" end
+          )\t\(.name // "Unknown")\t(\(.majorClass // "-"))\t\(.address // "-")"
+  ' <<< "$devices_json"
+)"
+
+[ -z "$menu_lines" ] && { echo "No paired devices."; exit 1; }
+
+selected="$(
+  printf "%s\n" "$menu_lines" \
+  | fzf --multi --ansi --prompt="Connect > " \
+        --header=$'[スペース]で複数選択 / [Enter]で接続\n[●]=接続中 [ ]=未接続' \
+        --with-nth=1,2,3 --delimiter=$'\t'
+)"
+
+[ -z "$selected" ] && exit 0
+
+# 選択された行からアドレスを抜き出し、接続を試みる
+ok=0; ng=0
+while IFS= read -r line; do
+  addr="$(awk -F'\t' '{print $4}' <<< "$line")"
+  name="$(awk -F'\t' '{print $2}' <<< "$line")"
+
+  if [ -z "$addr" ] || [ "$addr" = "-" ]; then
+    echo "Skip: $name (no address)"; ((ng++)); continue
+  fi
+
+  echo "Connecting to: $name ($addr)..."
+  if blueutil --connect "$addr" >/dev/null 2>&1; then
+    # 成功判定を少し待って確認
+    for _ in {1..10}; do
+      sleep 0.3
+      if blueutil --is-connected "$addr" | grep -q "^1$"; then
+        echo "OK: $name connected."
+        ((ok++)); break
+      fi
+    done
+  fi
+
+  if ! blueutil --is-connected "$addr" | grep -q "^1$"; then
+    echo "NG: $name connect failed."
+    ((ng++))
+  fi
+done <<< "$selected"
+
+echo "Done. success=$ok fail=$ng"
+

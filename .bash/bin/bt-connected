@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Show connected Bluetooth devices.
+set -euo pipefail
+
+# 依存チェック
+for c in blueutil jq; do
+  command -v "$c" >/dev/null 2>&1 || { echo "missing: $c"; exit 1; }
+done
+
+# 接続中のみを抽出して表示（名前, アドレス, 種別, RSSI）
+blueutil --paired --format json |
+jq -r '
+  map(select(.connected == true)) |
+  if length==0 then
+    "No Bluetooth devices are connected."
+  else
+    (["Name","Address","Type","RSSI"] | @tsv),
+    (.[] | [(.name // "Unknown"),
+             (.address // "-"),
+             (.majorClass // "-"),
+             ((.RSSI|tostring) // "-")] | @tsv)
+  end
+' | column -t -s$'\t'
+

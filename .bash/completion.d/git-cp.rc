@@ -1,5 +1,4 @@
 # Bash completion loader for git-cp
-GIT_TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../src/git-tools" && pwd)"
-if [[ -f "${GIT_TOOLS_DIR}/git-cp/completion.bash" ]]; then
-    source "${GIT_TOOLS_DIR}/git-cp/completion.bash"
+if command -v git-cp &> /dev/null; then
+    eval "$(git-cp completion 2>/dev/null || true)"
 fi

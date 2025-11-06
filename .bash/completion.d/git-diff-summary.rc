@@ -1,4 +1,9 @@
 # Bash completion loader for git-diff-summary
 if command -v git-diff-summary &> /dev/null; then
-    eval "$(git-diff-summary completion 2>/dev/null || true)"
+    # Try with bash argument first (Cobra standard), fallback to no argument (legacy)
+    if git-diff-summary completion bash &>/dev/null 2>&1; then
+        eval "$(git-diff-summary completion bash 2>/dev/null || true)"
+    else
+        eval "$(git-diff-summary completion 2>/dev/null || true)"
+    fi
 fi

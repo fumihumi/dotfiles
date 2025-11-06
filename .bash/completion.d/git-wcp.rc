@@ -1,0 +1,9 @@
+# Bash completion loader for git-wcp
+if command -v git-wcp &> /dev/null; then
+    # Try with bash argument first (Cobra standard), fallback to no argument (legacy)
+    if git-wcp completion bash &>/dev/null 2>&1; then
+        eval "$(git-wcp completion bash 2>/dev/null || true)"
+    else
+        eval "$(git-wcp completion 2>/dev/null || true)"
+    fi
+fi

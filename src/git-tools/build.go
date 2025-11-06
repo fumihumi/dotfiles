@@ -153,11 +153,18 @@ func generateCompletionLoader(name, completionDir, toolType string) {
 	var content string
 	switch toolType {
 	case "go":
+		// First, check if the tool uses Cobra's standard completion (with shell argument)
+		// or legacy completion (without argument)
 		content = fmt.Sprintf(`# Bash completion loader for %s
 if command -v %s &> /dev/null; then
-    eval "$(%s completion 2>/dev/null || true)"
+    # Try with bash argument first (Cobra standard), fallback to no argument (legacy)
+    if %s completion bash &>/dev/null 2>&1; then
+        eval "$(%s completion bash 2>/dev/null || true)"
+    else
+        eval "$(%s completion 2>/dev/null || true)"
+    fi
 fi
-`, name, name, name)
+`, name, name, name, name, name)
 	case "bash":
 		content = fmt.Sprintf(`# Bash completion loader for %s
 GIT_TOOLS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../src/git-tools" && pwd)"
