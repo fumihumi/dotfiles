@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Show current audio output device.
+set -euo pipefail
+
+command -v SwitchAudioSource >/dev/null 2>&1 || { echo "missing: SwitchAudioSource"; exit 1; }
+
+current="$(SwitchAudioSource -t output -c 2>/dev/null || true)"
+
+if [ -z "$current" ]; then
+  echo "No output device is currently selected."
+  exit 0
+fi
+
+echo "Current output device: $current"

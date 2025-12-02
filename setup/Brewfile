@@ -105,3 +105,6 @@ cask "alt-tab"
 cask "sublime-text"
 
 mas "Amphetamine", id: 937984704
+
+brew "switchaudio-osx"
+brew "blueutil"

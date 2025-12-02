@@ -67,3 +67,10 @@ export PATH="/Users/takafumi.suzuki/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# .bash/bin フォルダのスクリプトをコマンドとして利用できるようにPATHに追加
+export GIT_BIN_PATH="$GHQ_ROOT/github.com/fumihumi/dotfiles/.bash/bin"
+export GIT_WORK_BIN_PATH="$GHQ_ROOT/github.com/fumihumi/dotfiles/.bash/works/bin"
+
+export PATH="$GIT_BIN_PATH:$PATH"
+export PATH="$GIT_WORK_BIN_PATH:$PATH"

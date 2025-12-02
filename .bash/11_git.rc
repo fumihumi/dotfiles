@@ -9,11 +9,22 @@ function fzf_git_ch {
   fi
 }
 
-function fzf_git_d {
+function fzf_git_d_merged {
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-    git branch -D $(git branch | egrep -v "${GIT_IGNORE_BRANCH_LIST}" | grep -v `git current` | fzf)
+    git branch -D $(
+      git branch --merged | sed "s/^[ *|+]*//" | grep -vE $GIT_IGNORE_BRANCH_LIST | grep -v `git current` | fzf
+    )
   fi
 }
+
+function fzf_git_d {
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    git branch -D $(
+      git branch | sed "s/^[ *|+]*//" | grep -vE $GIT_IGNORE_BRANCH_LIST | grep -v `git current` | fzf
+    )
+  fi
+}
+
 
 function fzf_git_pull_rebase {
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
@@ -62,6 +73,7 @@ fzf_git_vim() {
 
 alias ch='fzf_git_ch'
 alias gid='fzf_git_d'
+alias gidm='fzf_git_d_merged'
 alias pullRebase='fzf_git_pull_rebase'
 alias fvim='fzf_git_vim'
 

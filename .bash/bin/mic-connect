@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+# Show audio input devices and select one via fzf.
+set -euo pipefail
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "missing: $1"; exit 1; }; }
+need SwitchAudioSource
+need fzf
+
+
+# 現在の入力デバイス名
+current="$(SwitchAudioSource -t input -c 2>/dev/null || true)"
+
+# オプションのフィルタ文字列（例: "USB" など）
+filter="${*:-}"
+
+# デバイス一覧取得（1行に1デバイス名）
+mapfile -t devices < <(SwitchAudioSource -a -t input)
+
+if [ "${#devices[@]}" -eq 0 ]; then
+  echo "No input devices found."
+  exit 1
+fi
+
+# フィルタが指定されていれば、部分一致で絞り込み
+filtered_devices=()
+if [ -n "$filter" ]; then
+  for name in "${devices[@]}"; do
+    if printf '%s\n' "$name" | grep -qi -- "$filter"; then
+      filtered_devices+=("$name")
+    fi
+  done
+else
+  filtered_devices=("${devices[@]}")
+fi
+
+if [ "${#filtered_devices[@]}" -eq 0 ]; then
+  echo "No input devices matched filter: $filter"
+  exit 1
+fi
+
+# 1件に絞り込めたらそのまま切り替え
+if [ "${#filtered_devices[@]}" -eq 1 ]; then
+  sel_name="${filtered_devices[0]}"
+  echo "Switching input device to: $sel_name (auto-selected by filter)"
+  SwitchAudioSource -t input -s "$sel_name"
+  new_current="$(SwitchAudioSource -t input -c 2>/dev/null || true)"
+  if [ "$new_current" = "$sel_name" ]; then
+    echo "OK: input device is now '$new_current'"
+    exit 0
+  else
+    echo "WARN: failed to switch input device (current: '$new_current')"
+    exit 1
+  fi
+fi
+
+# fzf 用の表示: [●]/[ ]\tName
+menu_lines="$(
+  for name in "${filtered_devices[@]}"; do
+    mark="[ ]"
+    if [ -n "$current" ] && [ "$name" = "$current" ]; then
+      mark="[●]"
+    fi
+    printf '%s\t%s\n' "$mark" "$name"
+  done
+)"
+
+selected="$(
+  printf '%s\n' "$menu_lines" |
+    fzf --ansi --prompt="Mic > " \
+        --header=$'[Enter]で入力デバイスを切り替え\n[●]=現在のデバイス' \
+        --with-nth=1,2 --delimiter=$'\t'
+)"
+
+[ -z "$selected" ] && exit 0
+
+# 選択された行からデバイス名を抽出
+sel_name="$(printf '%s\n' "$selected" | awk -F'\t' '{print $2}')"
+
+if [ -z "$sel_name" ]; then
+  echo "No device selected."
+  exit 1
+fi
+
+echo "Switching input device to: $sel_name"
+SwitchAudioSource -t input -s "$sel_name"
+
+# 結果を表示
+new_current="$(SwitchAudioSource -t input -c 2>/dev/null || true)"
+if [ "$new_current" = "$sel_name" ]; then
+  echo "OK: input device is now '$new_current'"
+else
+  echo "WARN: failed to switch input device (current: '$new_current')"
+fi

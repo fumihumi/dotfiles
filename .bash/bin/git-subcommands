@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+	cat <<'EOF'
+List available custom git subcommands found in paths defined by GIT_BIN_PATH and GIT_WORK_BIN_PATH.
+
+Usage:
+	git subcommands [options]
+
+Options:
+	--with-prefix        Show names with the leading 'git-' prefix (default: strip it)
+	-i                   Interactive selection via fzf then execute chosen subcommand
+	-h, --help           Show this help (unless combined with -i, then forwarded)
+
+Interactive forwarding:
+	git subcommands -i -h   Select a command then run it with -h
+
+Environment:
+	GIT_BIN_PATH        Primary directory searched
+	GIT_WORK_BIN_PATH   Secondary directory searched
+
+Notes:
+	Only executable regular files whose basename starts with 'git-' are considered.
+	Duplicates removed, output sorted.
+	Requires 'fzf' for -i. If missing, a message is shown.
+EOF
+}
+
+show_prefix=false
+interactive=false
+forward_help=false
+
+for arg in "$@"; do
+	case "$arg" in
+		--with-prefix) show_prefix=true ;;
+		-i) interactive=true ;;
+		-h|--help)
+			if [[ "$interactive" == true ]]; then
+				forward_help=true
+			else
+				usage; exit 0
+			fi
+			;;
+		*) echo "Unknown option: $arg" >&2; usage; exit 1 ;;
+	esac
+done
+
+paths=()
+for var in GIT_BIN_PATH GIT_WORK_BIN_PATH; do
+	val="${!var-}"
+	if [[ -n "$val" && -d "$val" ]]; then
+		paths+=("$val")
+	fi
+done
+
+if [[ ${#paths[@]} -eq 0 ]]; then
+	echo "git-subcommands: No valid directories. Set GIT_BIN_PATH or GIT_WORK_BIN_PATH." >&2
+	exit 1
+fi
+
+# Collect candidates (keep both display name and actual file path)
+declare -A seen
+declare -A filemap # key -> fullpath
+results=()
+for p in "${paths[@]}"; do
+	shopt -s nullglob
+	for f in "$p"/git-*; do
+		[[ -f "$f" && -x "$f" ]] || continue
+		base=$(basename "$f")
+		stripped=${base#git-}
+		display=$stripped
+		if [[ "$show_prefix" == true ]]; then
+			display=$base
+		fi
+		if [[ -z "${seen[$display]+x}" ]]; then
+			seen[$display]=1
+			filemap[$display]="$f"
+			results+=("$display")
+		fi
+	done
+	shopt -u nullglob
+done
+
+if [[ ${#results[@]} -eq 0 ]]; then
+	echo "git-subcommands: No git-* executables found." >&2
+	exit 1
+fi
+
+IFS=$'\n' sorted=($(printf '%s\n' "${results[@]}" | sort -u))
+unset IFS
+
+if [[ "$interactive" == false ]]; then
+	printf '%s\n' "${sorted[@]}"
+	exit 0
+fi
+
+# Interactive mode
+if ! command -v fzf >/dev/null 2>&1; then
+	echo "git-subcommands: fzf not found (required for -i). Install fzf (e.g. brew install fzf)." >&2
+	exit 1
+fi
+
+selected=$(printf '%s\n' "${sorted[@]}" | fzf)
+if [[ -z "$selected" ]]; then
+	echo "git-subcommands: selection cancelled." >&2
+	exit 1
+fi
+
+target_path="${filemap[$selected]}"
+if [[ -z "$target_path" ]]; then
+	echo "git-subcommands: internal error: path not found for $selected" >&2
+	exit 1
+fi
+
+args=()
+if [[ "$forward_help" == true ]]; then
+	args+=("-h")
+fi
+
+# Execute: if prefix stripped we can just call via 'git <name>' so that git resolves; else execute file directly.
+if [[ "$show_prefix" == true ]]; then
+	exec "$target_path" "${args[@]}"
+else
+	exec git "${selected}" "${args[@]}"
+fi

@@ -49,23 +49,23 @@
   delete-merged-branches = "!f () { git branch --merged | egrep -v '\\*|master|develop' | xargs git branch -d; }; f"
   alias = ! git config --get-regexp alias | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
   summary= ! git log --oneline --pretty=format:'%h [%cd] %d %s <%an>' --date=format:'%Y%m%d' | grep `date +%Y%m%d` | wc -l
-  update-packages="! git checkout -b ncu_`date +%Y%m%d`"
   default-branch="! git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2"
   latest-message="! git log -n 1 --pretty=format:'%s'"
-  branch-description = "! git config branch.$(git current-branch).description"
-  edit-description = "! git branch --edit-description"
   conflicts="!git ls-files -u | cut -f 2 | sort -u"
   refresh-remote="!git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'"
   fixup = "!f () { git rebase -i HEAD~$1;};f"
   short-diff="!f() { git log --no-merges origin/$1..origin/$2 --pretty=format:'%an:%h:%ad %s' --date=short; };f"
   recent="!f() { gh pr list --search \"created:>=`date -v-1d +%Y-%m-%d`\"; };f"
   pr-review="!f() { gh pr list --search 'is:open user-review-requested:@me';};f"
-  review-pr="! git pr-review"
+  pr-review-fzf="!f() { git pr-review | fzf | awk '{print $1}' | xargs gh pr view --web; };f"
+  pr-review-link="! gh pr list --search 'is:open user-review-requested:@me' --json title,url --template '{{range .}}{{.title}}: {{.url}}\n{{end}}'"
+  my-pr = "!gh pr list --search 'is:open' --state open --author @me --draft=false --json title,url --template '{{range .}}{{.title}}: {{.url}}\n{{end}}'"
   prs="!f() { gh pr list --search \"is:open label:$1\"; }; f"
 	merged-branch = !bash -c 'git branch --merged | grep -vE \"^\\*|$GIT_IGNORE_BRANCH_LIST\"'
 	prune-merged-branch = !bash -c 'git branch --merged | grep -vE \"^\\*|$GIT_IGNORE_BRANCH_LIST\" | xargs -r git branch -d'
   wcd = "!f() { echo \"Use: cd \\\"$(git wcd-path $1)\\\"\"; }; f"
   wcd-path = "!bash -c 'exec git-wcd \"$@\"' --"
+  wl = "! gwq list"
 
 [color]
   ui = auto
