@@ -32,3 +32,4 @@
 .bash/100_pc.rc
 !.bash/works/.gitkeep
 !.bash/works/bin/.gitkeep
+.bash/completion.d/_*
