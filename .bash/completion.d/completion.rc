@@ -1,0 +1,13 @@
+# shell completion
+# github.com/t98o84/gw
+eval "$(gw shell-integration --show-script --shell=bash)"
+
+# docker fzf
+if [ -f "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash" ]; then
+  source "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash"
+fi
+
+# github.com/fumihumi/bt-manage
+eval "$(bt-manage completion bash)"
+
+# eval "$(mise completion bash --include-bash-completion-lib)"

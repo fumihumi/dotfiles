@@ -1,11 +1,11 @@
 [tools]
-deno = "2.2.11"
+deno = "latest"
 go = "latest"
-node = "23.0.0"
+node = "latest"
 pnpm = "latest"
-python = "3.13.0"
-ruby = "3.5.0-preview1"
-uv = "0.7.13"
+python = "latest"
+ruby = "latest"
+uv = "latest"
 
-[settings]
-idiomatic_version_file_enable_tools = ["ruby"]
+"npm:@aku11i/phantom" = "latest"
+usage = "latest"

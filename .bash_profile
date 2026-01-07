@@ -1,5 +1,5 @@
 eval $(/opt/homebrew/bin/brew shellenv)
-eval "$(~/.local/bin/mise activate bash)"
+eval "$(mise activate bash)"
 
 if [ -f ~/.bashrc ] ; then
   . ~/.bashrc
@@ -7,11 +7,6 @@ fi
 
 
 GHQ_ROOT=$(ghq root)
-
-# docker fzf
-if [ -f "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash" ]; then
-  source "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash"
-fi
 
 BREW_PREFIX=$(brew --prefix)
 
