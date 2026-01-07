@@ -1,32 +1,37 @@
-###-begin-pnpm-completion-###
-if type complete &>/dev/null; then
-  _pnpm_completion () {
-    local words cword
-    if type _get_comp_words_by_ref &>/dev/null; then
-      _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
-    else
-      cword="$COMP_CWORD"
-      words=("${COMP_WORDS[@]}")
-    fi
+_pnpm_fzf_run_only_or_default() {
+  local cur prev
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           SHELL=bash \
-                           pnpm completion-server -- "${words[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
+  # jq が無ければそのまま既存 completion に委譲
+  if ! command -v jq >/dev/null 2>&1; then
+    type _pnpm_completion >/dev/null 2>&1 && _pnpm_completion
+    return 0
+  fi
 
-    if [ "$COMPREPLY" = "__tabtab_complete_files__" ]; then
-      COMPREPLY=($(compgen -f -- "$cword"))
-    fi
+  # 対象:
+  #   pnpm run <TAB>        → fzf
+  #   pnpm run bu<TAB>      → fzf + query=bu
+  if [[ "${COMP_WORDS[1]}" == "run" && $COMP_CWORD -eq 2 ]]; then
+    [[ -f package.json ]] || return 0
 
-    if type __ltrim_colon_completions &>/dev/null; then
-      __ltrim_colon_completions "${words[cword]}"
-    fi
-  }
-  complete -o default -F _pnpm_completion pnpm
-fi
-###-end-pnpm-completion-###
+    local scripts
+    scripts="$(jq -r '.scripts | keys[]' package.json 2>/dev/null)" || return 0
+    [[ -z "$scripts" ]] && return 0
 
+    local choice
+    choice="$(printf '%s\n' "$scripts" \
+      | fzf --height=40% --reverse --query "$cur")"
+
+    [[ -n "$choice" ]] && COMPREPLY=("$choice")
+    return 0
+  fi
+
+  if type _pnpm_completion >/dev/null 2>&1; then
+    _pnpm_completion
+  fi
+}
+
+# 既存 completion は解除せず、上書き登録してフォールバックする
+complete -o default -F _pnpm_fzf_run_only_or_default pnpm

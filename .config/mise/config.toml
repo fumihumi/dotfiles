@@ -1,5 +1,6 @@
 [tools]
 deno = "latest"
+bun = "latest"
 go = "latest"
 node = "latest"
 pnpm = "latest"
@@ -7,5 +8,10 @@ python = "latest"
 ruby = "latest"
 uv = "latest"
 
-"npm:@aku11i/phantom" = "latest"
 usage = "latest"
+
+"npm:@aku11i/phantom" = "latest"
+"npm:@openai/codex" = "latest"
+"npm:@anthropic-ai/claude-code" = "latest"
+"npm:ccusage" = "latest"
+"npm:@github/copilot" = "latest"
