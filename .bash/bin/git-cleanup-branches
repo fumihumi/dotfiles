@@ -1,0 +1,319 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+prog="git-cleanup-branches"
+
+die() {
+	echo "$prog: $*" >&2
+	exit 1
+}
+
+usage() {
+	cat <<'EOF'
+Delete local branches that are already merged, excluding branches by regex.
+
+Usage:
+  git cleanup-branches [options]
+
+Options:
+  -n, --dry-run         Show branches that would be deleted
+  -y, --yes             Do not prompt for confirmation
+  -f, --force           Force delete (git branch -D)
+  --base <ref>          Base ref to compare merge status against
+  --fetch               Run 'git fetch --prune' before checking
+  -v, --verbose         Show more details
+  -h, --help            Show this help
+
+Environment:
+	cleanup.ignoreBranchRegex (git config, local)
+												Repo-local ignore regex (highest priority).
+												Example:
+													git config --local cleanup.ignoreBranchRegex '^(main|master|develop)$'
+
+	cleanup.baseRef (git config, local)
+										Default base ref when --base is omitted.
+										Example:
+											git config --local cleanup.baseRef develop
+
+	cleanup.baseStrategy (git config, local)
+										Default base detection strategy when --base is omitted and cleanup.baseRef is not set.
+										Values:
+											current: use current branch (if any)
+											remote: prefer refs/remotes/origin/HEAD then origin/main/master
+											auto:   remote then current (default)
+
+	GIT_IGNORE_BRANCH_LIST
+												Extended Regular Expression (ERE) used via grep -E.
+
+	(compat) GIT_IGNORE_BRANCHES
+												Deprecated. If set, treated as an ERE (NOT a list).
+
+Notes:
+  - The current checked-out branch is never deleted.
+	- Branches currently checked out in any git worktree are never deleted.
+	- If --base is omitted and cleanup.baseRef is not set, this command chooses a base by strategy.
+	  Default strategy is 'auto': refs/remotes/origin/HEAD, origin/main, origin/master, main, master,
+	  then current branch.
+EOF
+}
+
+is_git_repo() {
+	git rev-parse --is-inside-work-tree >/dev/null 2>&1
+}
+
+require_ref() {
+	local ref="$1"
+	git rev-parse --verify -q "${ref}^{commit}" >/dev/null 2>&1
+}
+
+get_config_base_ref() {
+	git config --local --get cleanup.baseRef 2>/dev/null || true
+}
+
+get_config_base_strategy() {
+	git config --local --get cleanup.baseStrategy 2>/dev/null || true
+}
+
+detect_base_ref() {
+	local strategy="${1:-auto}"
+	local current=""
+	current=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true)
+
+	case "$strategy" in
+		current)
+			[[ -n "$current" ]] && echo "$current" && return 0
+			;;
+		remote|auto)
+			# Prefer remote HEAD if available.
+			if require_ref "refs/remotes/origin/HEAD"; then
+				git symbolic-ref -q refs/remotes/origin/HEAD 2>/dev/null | sed 's|^refs/remotes/||'
+				return 0
+			fi
+
+			for candidate in origin/main origin/master main master; do
+				if require_ref "$candidate"; then
+					echo "$candidate"
+					return 0
+				fi
+			done
+
+			if [[ "$strategy" == "auto" ]]; then
+				[[ -n "$current" ]] && echo "$current" && return 0
+			fi
+			;;
+		*)
+			# Unknown strategy; behave like auto.
+			if require_ref "refs/remotes/origin/HEAD"; then
+				git symbolic-ref -q refs/remotes/origin/HEAD 2>/dev/null | sed 's|^refs/remotes/||'
+				return 0
+			fi
+			for candidate in origin/main origin/master main master; do
+				if require_ref "$candidate"; then
+					echo "$candidate"
+					return 0
+				fi
+			done
+			[[ -n "$current" ]] && echo "$current" && return 0
+			;;
+	esac
+
+	return 1
+}
+
+split_ignore_globs() {
+	:
+}
+
+matches_ignore_globs() {
+	return 1
+}
+
+get_ignore_regex() {
+	local v=""
+	# 1) repo-local config
+	v=$(git config --local --get cleanup.ignoreBranchRegex 2>/dev/null || true)
+	if [[ -n "$v" ]]; then
+		echo "$v"
+		return 0
+	fi
+
+	# 2) env (preferred)
+	v="${GIT_IGNORE_BRANCH_LIST-}"
+	if [[ -n "$v" ]]; then
+		echo "$v"
+		return 0
+	fi
+
+	# 3) compat env (treat as regex)
+	v="${GIT_IGNORE_BRANCHES-}"
+	if [[ -n "$v" ]]; then
+		echo "$v"
+		return 0
+	fi
+
+	return 1
+}
+
+matches_ignore_regex() {
+	local branch="$1"
+	local regex="$2"
+	[[ -z "$regex" ]] && return 1
+	printf '%s\n' "$branch" | grep -Eq "$regex"
+}
+
+get_worktree_branches() {
+	# Output: newline-separated branch names that are currently checked out in any worktree.
+	# Only refs/heads/* are emitted.
+	git worktree list --porcelain 2>/dev/null |
+		awk '/^branch refs\/heads\//{sub(/^branch refs\/heads\//, ""); print}'
+}
+
+base_ref=""
+dry_run=false
+yes=false
+force=false
+fetch=false
+verbose=false
+
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-n|--dry-run) dry_run=true; shift ;;
+		-y|--yes) yes=true; shift ;;
+		-f|--force) force=true; shift ;;
+		--fetch) fetch=true; shift ;;
+		-v|--verbose) verbose=true; shift ;;
+		--base)
+			[[ $# -ge 2 ]] || die "--base requires a ref"
+			base_ref="$2"
+			shift 2
+			;;
+		-h|--help) usage; exit 0 ;;
+		*)
+			die "unknown option: $1 (see --help)"
+			;;
+	esac
+done
+
+is_git_repo || die "not a git repository"
+
+if [[ "$fetch" == true ]]; then
+	if [[ "$verbose" == true ]]; then
+		git fetch --prune
+	else
+		git fetch --prune >/dev/null 2>&1 || git fetch --prune
+	fi
+fi
+
+if [[ -z "$base_ref" ]]; then
+	base_ref="$(get_config_base_ref)"
+fi
+
+if [[ -z "$base_ref" ]]; then
+	strategy="$(get_config_base_strategy)"
+	base_ref="$(detect_base_ref "${strategy:-auto}")"
+fi
+[[ -n "$base_ref" ]] || die "could not detect base ref (use --base)"
+require_ref "$base_ref" || die "base ref not found: $base_ref"
+
+current_branch=""
+current_branch=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true)
+
+ignore_regex=""
+ignore_regex=$(get_ignore_regex 2>/dev/null || true)
+
+declare -A worktree_branch_map
+while IFS= read -r wb; do
+	[[ -z "$wb" ]] && continue
+	worktree_branch_map["$wb"]=1
+done < <(get_worktree_branches)
+
+base_branch_name="${base_ref##*/}"
+
+branches=()
+while IFS= read -r b; do
+	[[ -z "$b" ]] && continue
+	branches+=("$b")
+done < <(git for-each-ref refs/heads --format='%(refname:short)')
+
+candidates=()
+for b in "${branches[@]}"; do
+	# Never delete the currently checked-out branch.
+	if [[ -n "$current_branch" && "$b" == "$current_branch" ]]; then
+		continue
+	fi
+
+	# Never delete the base branch name (e.g. base=origin/main -> keep local main).
+	if [[ -n "$base_branch_name" && "$b" == "$base_branch_name" ]]; then
+		continue
+	fi
+
+	# Never delete branches currently checked out in any worktree.
+	if [[ -n "${worktree_branch_map[$b]+x}" ]]; then
+		continue
+	fi
+
+	# Requirement: keep work-* branches that are used as worktrees (covered by the check above).
+
+	# Exclude by ignore regex.
+	if matches_ignore_regex "$b" "$ignore_regex"; then
+		continue
+	fi
+
+	# Check merged status: branch tip reachable from base.
+	if git merge-base --is-ancestor "$b" "$base_ref" >/dev/null 2>&1; then
+		candidates+=("$b")
+	fi
+done
+
+if [[ ${#candidates[@]} -eq 0 ]]; then
+	if [[ "$verbose" == true ]]; then
+		echo "$prog: no merged local branches to delete (base=$base_ref)"
+	fi
+	exit 0
+fi
+
+if [[ "$dry_run" == true ]]; then
+	printf '%s\n' "${candidates[@]}"
+	exit 0
+fi
+
+if [[ "$yes" == false ]]; then
+	echo "Base: $base_ref"
+	if [[ -n "$current_branch" ]]; then
+		echo "Current: $current_branch"
+	else
+		echo "Current: (detached HEAD)"
+	fi
+	echo "Delete merged local branches:"
+	printf '  %s\n' "${candidates[@]}"
+	echo -n "Proceed? [y/N] "
+	read -r reply
+	case "$reply" in
+		y|Y|yes|YES) ;;
+		*)
+			echo "$prog: cancelled"
+			exit 1
+			;;
+	esac
+fi
+
+cmd=(git branch -d)
+if [[ "$force" == true ]]; then
+	cmd=(git branch -D)
+fi
+
+failures=0
+for b in "${candidates[@]}"; do
+	if [[ "$verbose" == true ]]; then
+		echo "+ ${cmd[*]} $b"
+	fi
+	if ! "${cmd[@]}" "$b"; then
+		failures=$((failures + 1))
+	fi
+done
+
+if [[ "$failures" -gt 0 ]]; then
+	die "$failures branch(es) could not be deleted"
+fi
+
+exit 0

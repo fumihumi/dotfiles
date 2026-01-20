@@ -87,3 +87,14 @@ Host *
 - Karabiner-Elements
 - AltTab
 - alfred
+
+## Git
+
+- `git cleanup-branches`: マージ済みのローカルブランチを一括削除（worktree で使用中のブランチは削除しません）
+  - Dry-run: `git cleanup-branches -n`
+  - 基準ブランチ（base）を指定: `git cleanup-branches -n --base <branch>`
+  - 除外（正規表現）: `export GIT_IGNORE_BRANCH_LIST='^(main|master|develop)$'`
+  - リポジトリごとの除外（推奨）: `git config --local cleanup.ignoreBranchRegex '^(main|master|develop)$'`
+  - `--base` 省略時のデフォルト基準（リポジトリ単位で設定）
+    - 現在ブランチ基準にする: `git config --local cleanup.baseStrategy current`
+    - 特定ブランチ固定にする: `git config --local cleanup.baseRef develop`
