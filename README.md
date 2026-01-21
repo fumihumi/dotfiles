@@ -93,6 +93,8 @@ Host *
 - `git cleanup-branches`: マージ済みのローカルブランチを一括削除（worktree で使用中のブランチは削除しません）
   - Dry-run: `git cleanup-branches -n`
   - 基準ブランチ（base）を指定: `git cleanup-branches -n --base <branch>`
+  - 未マージを対象にする（危険なので基本は dry-run 推奨）: `git cleanup-branches --no-merged -n`
+  - 未マージを強制削除: `git cleanup-branches --no-merged --force`
   - 除外（正規表現）: `export GIT_IGNORE_BRANCH_LIST='^(main|master|develop)$'`
   - リポジトリごとの除外（推奨）: `git config --local cleanup.ignoreBranchRegex '^(main|master|develop)$'`
   - `--base` 省略時のデフォルト基準（リポジトリ単位で設定）

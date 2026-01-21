@@ -10,12 +10,14 @@ die() {
 
 usage() {
 	cat <<'EOF'
-Delete local branches that are already merged, excluding branches by regex.
+Delete local branches by merge status against a base ref, excluding branches by regex.
 
 Usage:
   git cleanup-branches [options]
 
 Options:
+	--merged             Target merged branches (default)
+	--no-merged          Target NOT merged branches (requires --force unless --dry-run)
   -n, --dry-run         Show branches that would be deleted
   -y, --yes             Do not prompt for confirmation
   -f, --force           Force delete (git branch -D)
@@ -54,6 +56,7 @@ Notes:
 	- If --base is omitted and cleanup.baseRef is not set, this command chooses a base by strategy.
 	  Default strategy is 'auto': refs/remotes/origin/HEAD, origin/main, origin/master, main, master,
 	  then current branch.
+	- Deleting unmerged branches is dangerous. Use --no-merged with --dry-run first.
 EOF
 }
 
@@ -174,9 +177,12 @@ yes=false
 force=false
 fetch=false
 verbose=false
+mode="merged"
 
 while [[ $# -gt 0 ]]; do
 	case "$1" in
+		--merged) mode="merged"; shift ;;
+		--no-merged) mode="no-merged"; shift ;;
 		-n|--dry-run) dry_run=true; shift ;;
 		-y|--yes) yes=true; shift ;;
 		-f|--force) force=true; shift ;;
@@ -195,6 +201,15 @@ while [[ $# -gt 0 ]]; do
 done
 
 is_git_repo || die "not a git repository"
+
+case "$mode" in
+	merged|no-merged) ;;
+	*) die "internal error: invalid mode: $mode" ;;
+esac
+
+if [[ "$mode" == "no-merged" && "$dry_run" == false && "$force" == false ]]; then
+	die "--no-merged is dangerous; refusing without --force (use --dry-run to preview)"
+fi
 
 if [[ "$fetch" == true ]]; then
 	if [[ "$verbose" == true ]]; then
@@ -259,15 +274,21 @@ for b in "${branches[@]}"; do
 		continue
 	fi
 
-	# Check merged status: branch tip reachable from base.
+	# Merge status: branch tip reachable from base.
 	if git merge-base --is-ancestor "$b" "$base_ref" >/dev/null 2>&1; then
-		candidates+=("$b")
+		[[ "$mode" == "merged" ]] && candidates+=("$b")
+	else
+		[[ "$mode" == "no-merged" ]] && candidates+=("$b")
 	fi
 done
 
 if [[ ${#candidates[@]} -eq 0 ]]; then
 	if [[ "$verbose" == true ]]; then
-		echo "$prog: no merged local branches to delete (base=$base_ref)"
+		if [[ "$mode" == "merged" ]]; then
+			echo "$prog: no merged local branches to delete (base=$base_ref)"
+		else
+			echo "$prog: no unmerged local branches to delete (base=$base_ref)"
+		fi
 	fi
 	exit 0
 fi
@@ -284,7 +305,11 @@ if [[ "$yes" == false ]]; then
 	else
 		echo "Current: (detached HEAD)"
 	fi
-	echo "Delete merged local branches:"
+	if [[ "$mode" == "merged" ]]; then
+		echo "Delete merged local branches:"
+	else
+		echo "Delete NOT merged local branches (DANGEROUS):"
+	fi
 	printf '  %s\n' "${candidates[@]}"
 	echo -n "Proceed? [y/N] "
 	read -r reply
