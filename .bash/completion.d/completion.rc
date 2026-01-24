@@ -3,9 +3,12 @@
 if [ -f "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash" ]; then
   source "$GHQ_ROOT/github.com/kwhrtsk/docker-fzf-completion/docker-fzf.bash"
 fi
-source <(gw shell-integration --show-script --shell=bash)
+if command -v gw >/dev/null 2>&1; then
+  eval "$(gw init bash)"
+fi
 source <(bt-manage completion bash)
-# source <(mise completion bash --include-bash-completion-lib)
 source <(phantom completion bash)
 source <(pnpm completion bash)
 source <(gwq completion bash)
+
+eval "$(git-wt --init bash)"

@@ -1,5 +1,7 @@
 eval $(/opt/homebrew/bin/brew shellenv)
-eval "$(mise activate bash)"
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate bash)"
+fi
 
 if [ -f ~/.bashrc ] ; then
   . ~/.bashrc

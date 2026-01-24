@@ -1,3 +1,5 @@
 github.com/jesseduffield/lazygit
-github.com/d-kuro/gwq
+github.com/d-kuro/gwq/cmd/gwq
 github.com/t98o84/gw
+github.com/k1LoW/git-wt
+github.com/fumihumi/bt-manage/cmd/bt-manage
