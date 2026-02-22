@@ -45,7 +45,7 @@
     "BTTTouchBarVisible" : false,
     "BSTDontShowSnapAreasWhileModMoving" : 0,
     "BTTDrawingAreaHeight" : 626,
-    "BTTNumberOfStarts" : 20110,
+    "BTTNumberOfStarts" : 20119,
     "BTTTouchBarHapticFeedback" : 0,
     "BTTStageManagerLeftSnappingAreaIncreasePercentage" : 0.125,
     "showKeyboardTab" : true,
@@ -89,6 +89,7 @@
     "BSTSnapAreaDefaultCornerRadius" : 20,
     "twoFingerDoubleTapDelay" : 0.5,
     "BSTMoveTreshold" : 2,
+    "BTTLastScreenshotDateFormat" : "yyyy-MM-dd HH.mm.ss",
     "BTTStageManagerIncreaseEvenIfHiding" : true,
     "BTTLastClamshellState" : false,
     "BTTTwoFingerTipTapMinSpread" : 0.029999999999999999,
@@ -143,8 +144,9 @@
     "BTTDrawingsRestoreMousePosition" : true,
     "singleFingerTapRight" : 0.05000000074505806,
     "singleFingerTapLeft" : 0.44999998807907104,
-    "BTTDidRegisterForUpdateStats" : "6.008",
+    "BTTDidRegisterForUpdateStats" : "6.186",
     "BTTHandleThumbsRestingOnTopEdgeAndCorners" : true,
+    "BTTLastScreenshotOptions" : "-i;;-U;;-W;;-x;;-t;;png;;-u;;BTTAdditionallyCopyToClipboard;;BTTDontCopyPath;;/Users/takafumi.suzuki/Documents/ScreenShots/Screenshot_{datetime}_{random}.png;;",
     "BSTBrokenAPICheckEnabled" : false,
     "BTTDrawingsHighlightStartPoint" : true,
     "BSTIncreaseSnappingArea" : true,
@@ -164,11 +166,19 @@
     "BSTSnapAreaDefaultShowPictogram" : false,
     "BSTSnapAreaDefaultPictoDistanceFromBottom" : 0.10000000149011612
   },
-  "BTTPresetUUID" : "C7C7CCBB-3821-4CF1-9DE5-236E8165FE36",
+  "BTTPresetUUID" : "ABE91567-E7C3-41EC-974D-BE700BBD32AF",
   "BTTPresetContent" : [
     {
       "BTTAppBundleIdentifier" : "BT.L",
       "BTTAppName" : "Recently Used",
+      "BTTAppAutoInvertIcon" : 1,
+      "BTTTriggers" : [
+
+      ]
+    },
+    {
+      "BTTAppBundleIdentifier" : "com.apple.finder",
+      "BTTAppName" : "Finder",
       "BTTAppAutoInvertIcon" : 1,
       "BTTTriggers" : [
 
@@ -183,180 +193,98 @@
       },
       "BTTTriggers" : [
         {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.979949,
-          "BTTTriggerType" : 100,
-          "BTTTriggerTypeDescriptionReadOnly" : "3本指で左にスワイプ",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "BD4D54DF-9192-4A92-81FB-50B5A6F7F9B3",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 0,
-          "BTTOrder" : 2
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.979955,
-          "BTTTriggerType" : 114,
-          "BTTTriggerTypeDescriptionReadOnly" : "TipTap右（1本指修正）",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "2B3F605F-AB5C-4DA6-A2FF-4702011F516A",
-          "BTTPredefinedActionType" : 366,
-          "BTTPredefinedActionName" : "空のプレースホルダ",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTOrder" : 7,
-          "BTTAdditionalActions" : [
+          "BTTLastUpdatedAt" : 1771378002.9388461,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "3417EF9A-21AE-4B0E-96B8-6F1646BBA6F2",
+          "BTTAdditionalConfiguration" : "786465",
+          "BTTShortcutKeyboardType" : 59272,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : ",",
+          "BTTShortcutKeyCode" : 43,
+          "BTTShortcutAdvancedModifierKeys" : "786465",
+          "BTTShortcutModifierKeys" : 786432,
+          "BTTOrder" : 8,
+          "BTTAutoAdaptToKeyboardLayout" : 0,
+          "BTTActionsToExecute" : [
             {
-              "BTTActionCategory" : 0,
-              "BTTLastUpdatedAt" : 1767917132.675333,
-              "BTTTriggerParentUUID" : "2B3F605F-AB5C-4DA6-A2FF-4702011F516A",
+              "BTTLastUpdatedAt" : 1769231164.3260169,
+              "BTTTriggerParentUUID" : "3417EF9A-21AE-4B0E-96B8-6F1646BBA6F2",
               "BTTIsPureAction" : true,
-              "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-              "BTTUUID" : "E1666105-D12B-414B-B0ED-27E09C9198C9",
-              "BTTLayoutIndependentActionChar" : "x",
-              "BTTShortcutToSend" : "60,58,55,7",
-              "BTTEnabled" : 1,
-              "BTTEnabled2" : 1,
-              "BTTOrder" : 11
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTUUID" : "378F5FC0-7615-4711-9138-07822AB0F769",
+              "BTTPredefinedActionType" : 113,
+              "BTTPredefinedActionName" : "スペースを左に移動",
+              "BTTShortcutKeyboardType" : 0,
+              "BTTShortcutKeyCode" : -1,
+              "BTTOrder" : 3,
+              "BTTAutoAdaptToKeyboardLayout" : 0
             }
           ]
         },
         {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.9799609,
-          "BTTTriggerType" : 105,
-          "BTTTriggerTypeDescriptionReadOnly" : "4本指で左にスワイプ",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "3AEE221D-47E8-4B22-90A8-E19A89890E8F",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 0,
-          "BTTOrder" : 1
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.97997,
-          "BTTTriggerType" : 132,
-          "BTTTriggerTypeDescriptionReadOnly" : "TipTap左（2本指修正）",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "23F5AAEE-D551-4A0B-9F9D-F748A4AD5D88",
-          "BTTPredefinedActionType" : 366,
-          "BTTPredefinedActionName" : "空のプレースホルダ",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTOrder" : 5,
-          "BTTAdditionalActions" : [
-            {
-              "BTTActionCategory" : 0,
-              "BTTLastUpdatedAt" : 1767917121.363045,
-              "BTTTriggerParentUUID" : "23F5AAEE-D551-4A0B-9F9D-F748A4AD5D88",
-              "BTTIsPureAction" : true,
-              "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-              "BTTUUID" : "361EBE5D-6BF8-4027-ACFF-7D0749FBCCD9",
-              "BTTLayoutIndependentActionChar" : "x",
-              "BTTShortcutToSend" : "60,58,55,7",
-              "BTTEnabled" : 1,
-              "BTTEnabled2" : 1,
-              "BTTOrder" : 10
-            }
-          ],
-          "BTTTriggerConfig" : {
-            "BTTNoTouchTimeout" : 0,
-            "BTTHUDText" : "copied",
-            "BTTShowHUD" : 1
-          }
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.97999,
-          "BTTTriggerType" : 0,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTUUID" : "E41C77F6-2523-4572-9430-B18CA0FDA56C",
-          "BTTPredefinedActionType" : 20,
-          "BTTPredefinedActionName" : "ウィンドウを右に最大化",
-          "BTTAdditionalConfiguration" : "9175073",
-          "BTTKeyboardShortcutKeyboardType" : 0,
-          "BTTTriggerOnDown" : 1,
-          "BTTLayoutIndependentChar" : "RIGHT",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTShortcutKeyCode" : 124,
-          "BTTShortcutModifierKeys" : 9175040,
-          "BTTOrder" : 0,
-          "BTTAutoAdaptToKeyboardLayout" : 0
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.9800072,
-          "BTTTriggerType" : 0,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTUUID" : "F8AC8A2D-AC96-4E39-8D7B-69B800361DCF",
-          "BTTPredefinedActionType" : 21,
-          "BTTPredefinedActionName" : "ウィンドウを最大化",
-          "BTTAdditionalConfiguration" : "786465",
-          "BTTKeyboardShortcutKeyboardType" : 0,
-          "BTTTriggerOnDown" : 1,
-          "BTTLayoutIndependentChar" : "RETURN",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTShortcutKeyCode" : 36,
-          "BTTShortcutModifierKeys" : 786432,
-          "BTTOrder" : 2,
-          "BTTAutoAdaptToKeyboardLayout" : 0
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.980001,
-          "BTTTriggerType" : 101,
-          "BTTTriggerTypeDescriptionReadOnly" : "3本指で右にスワイプ",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "189F9BB1-20FA-4C63-BD3F-9191F2F92538",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 0,
-          "BTTOrder" : 3
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.979996,
+          "BTTLastUpdatedAt" : 1770082525.327219,
           "BTTTriggerType" : 0,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
           "BTTUUID" : "522EBA53-F30D-4177-BC94-67C38E02F353",
           "BTTPredefinedActionType" : 47,
           "BTTPredefinedActionName" : "ウィンドウを次のモニタに移動する",
           "BTTAdditionalConfiguration" : "786465",
-          "BTTKeyboardShortcutKeyboardType" : 0,
+          "BTTShortcutKeyboardType" : 0,
           "BTTTriggerOnDown" : 1,
           "BTTLayoutIndependentChar" : "\u0001",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
           "BTTShortcutKeyCode" : 42,
+          "BTTShortcutAdvancedModifierKeys" : "786465",
           "BTTShortcutModifierKeys" : 786432,
-          "BTTOrder" : 3,
+          "BTTOrder" : 5,
           "BTTAutoAdaptToKeyboardLayout" : 0
         },
         {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.9800348,
+          "BTTLastUpdatedAt" : 1771377995.9528232,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "A15BB394-2E75-49FA-B153-1C686803FCDE",
+          "BTTAdditionalConfiguration" : "786465",
+          "BTTShortcutKeyboardType" : 59272,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : ".",
+          "BTTShortcutKeyCode" : 47,
+          "BTTShortcutAdvancedModifierKeys" : "786465",
+          "BTTShortcutModifierKeys" : 786432,
+          "BTTOrder" : 7,
+          "BTTAutoAdaptToKeyboardLayout" : 0,
+          "BTTActionsToExecute" : [
+            {
+              "BTTLastUpdatedAt" : 1769231142.589968,
+              "BTTTriggerParentUUID" : "A15BB394-2E75-49FA-B153-1C686803FCDE",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTUUID" : "855C1BDB-EF25-4712-9946-150D89994CCB",
+              "BTTPredefinedActionType" : 114,
+              "BTTPredefinedActionName" : "スペースを右に移動",
+              "BTTShortcutKeyboardType" : 0,
+              "BTTShortcutKeyCode" : -1,
+              "BTTOrder" : 2,
+              "BTTAutoAdaptToKeyboardLayout" : 0
+            }
+          ]
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.174053,
           "BTTTriggerType" : 133,
           "BTTTriggerTypeDescriptionReadOnly" : "TipTap右（2本指修正）",
           "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
           "BTTUUID" : "DBB777B1-5B2C-4ADE-8DEE-B7125B243555",
-          "BTTPredefinedActionType" : 366,
-          "BTTPredefinedActionName" : "空のプレースホルダ",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
           "BTTOrder" : 4,
-          "BTTAdditionalActions" : [
+          "BTTActionsToExecute" : [
             {
-              "BTTActionCategory" : 0,
-              "BTTLastUpdatedAt" : 1767917100.923569,
+              "BTTLastUpdatedAt" : 1767917704.1297441,
               "BTTTriggerParentUUID" : "DBB777B1-5B2C-4ADE-8DEE-B7125B243555",
               "BTTIsPureAction" : true,
               "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
               "BTTUUID" : "B2B46DFC-4B03-47A2-81DF-E0F95CD2BC54",
               "BTTLayoutIndependentActionChar" : "c",
               "BTTShortcutToSend" : "55,8",
-              "BTTEnabled" : 1,
-              "BTTEnabled2" : 1,
               "BTTOrder" : 8
             }
           ],
@@ -367,66 +295,29 @@
           }
         },
         {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.980046,
-          "BTTTriggerType" : 106,
-          "BTTTriggerTypeDescriptionReadOnly" : "4本指で右にスワイプ",
-          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
-          "BTTUUID" : "42FC7718-EC3B-49CB-A656-2787FBD4B32F",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 0,
-          "BTTOrder" : 0
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.980041,
-          "BTTTriggerType" : 0,
-          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
-          "BTTUUID" : "C98614B7-4084-46F0-B8BA-43AD5FF0256B",
-          "BTTPredefinedActionType" : 19,
-          "BTTPredefinedActionName" : "ウィンドウを左に最大化",
-          "BTTAdditionalConfiguration" : "9175073",
-          "BTTKeyboardShortcutKeyboardType" : 0,
-          "BTTTriggerOnDown" : 1,
-          "BTTLayoutIndependentChar" : "LEFT",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
-          "BTTShortcutKeyCode" : 123,
-          "BTTShortcutModifierKeys" : 9175040,
-          "BTTOrder" : 1,
-          "BTTAutoAdaptToKeyboardLayout" : 0
-        },
-        {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1709457603.689568,
+          "BTTLastUpdatedAt" : 1770082525.327148,
           "BTTTriggerType" : 0,
           "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
           "BTTUUID" : "207E8227-C2B8-48C5-BFAF-3701EFE68517",
-          "BTTPredefinedActionType" : 366,
-          "BTTPredefinedActionName" : "空のプレースホルダ",
           "BTTAdditionalConfiguration" : "1572904",
-          "BTTKeyboardShortcutKeyboardType" : 5595,
+          "BTTShortcutKeyboardType" : 5595,
           "BTTTriggerOnDown" : 1,
           "BTTLayoutIndependentChar" : "h",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
           "BTTShortcutKeyCode" : 4,
+          "BTTShortcutAdvancedModifierKeys" : "1572904",
           "BTTShortcutModifierKeys" : 1572864,
-          "BTTOrder" : 4,
+          "BTTOrder" : 6,
           "BTTAutoAdaptToKeyboardLayout" : 0,
-          "BTTAdditionalActions" : [
+          "BTTActionsToExecute" : [
             {
-              "BTTActionCategory" : 0,
-              "BTTLastUpdatedAt" : 1709457593.1301,
+              "BTTLastUpdatedAt" : 1767917704.130512,
               "BTTTriggerParentUUID" : "207E8227-C2B8-48C5-BFAF-3701EFE68517",
               "BTTIsPureAction" : true,
               "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
               "BTTUUID" : "E9E2A084-D02A-4368-BEF8-C84DCF3316CF",
               "BTTPredefinedActionType" : 265,
-              "BTTPredefinedActionName" : "Show  or  Hide Menu Bar Icons Items Left Of Specific Icon",
-              "BTTKeyboardShortcutKeyboardType" : 0,
-              "BTTEnabled" : 1,
-              "BTTEnabled2" : 1,
+              "BTTPredefinedActionName" : "Show  or  Hide Menu Bar Status Icons Items Left Of Specific Icon",
+              "BTTShortcutKeyboardType" : 0,
               "BTTShortcutKeyCode" : -1,
               "BTTOrder" : 1,
               "BTTAutoAdaptToKeyboardLayout" : 0
@@ -434,29 +325,62 @@
           ]
         },
         {
-          "BTTActionCategory" : 0,
-          "BTTLastUpdatedAt" : 1767917595.979939,
+          "BTTLastUpdatedAt" : 1770082536.633749,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "31F31248-17B0-411C-B2FA-B9AA11652563",
+          "BTTAdditionalConfiguration" : "786465",
+          "BTTShortcutKeyboardType" : 59272,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "r",
+          "BTTShortcutKeyCode" : 15,
+          "BTTShortcutAdvancedModifierKeys" : "786465",
+          "BTTShortcutModifierKeys" : 786432,
+          "BTTOrder" : 9,
+          "BTTAutoAdaptToKeyboardLayout" : 0,
+          "BTTActionsToExecute" : [
+            {
+              "BTTLastUpdatedAt" : 1770546619.7982841,
+              "BTTTriggerParentUUID" : "31F31248-17B0-411C-B2FA-B9AA11652563",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+              "BTTUUID" : "C41A7002-56DA-405D-AB1C-A8CDAE10DB21",
+              "BTTPredefinedActionType" : 169,
+              "BTTPredefinedActionName" : "スクリーンショットのキャプチャ（設定可能）",
+              "BTTScreenshotOptions" : "-i;;-t;;png;;-u;;BTTAdditionallyCopyToClipboard;;/Users/takafumi.suzuki/Documents/ScreenShots/Screenshot_{datetime}_{random}.png;;",
+              "BTTScreenshotDateFormat" : "yyyy-MM-dd HH.mm.ss",
+              "BTTShortcutKeyboardType" : 0,
+              "BTTShortcutKeyCode" : -1,
+              "BTTOrder" : 12,
+              "BTTAutoAdaptToKeyboardLayout" : 0
+            }
+          ]
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.174062,
+          "BTTTriggerType" : 101,
+          "BTTTriggerTypeDescriptionReadOnly" : "3本指で右にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "189F9BB1-20FA-4C63-BD3F-9191F2F92538",
+          "BTTEnabled2" : 0,
+          "BTTOrder" : 3
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.1740708,
           "BTTTriggerType" : 113,
           "BTTTriggerTypeDescriptionReadOnly" : "TipTap左（1本指修正）",
           "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
           "BTTUUID" : "7E974CAC-03D3-4A52-98FC-DA2FB8ABB030",
-          "BTTPredefinedActionType" : 366,
-          "BTTPredefinedActionName" : "空のプレースホルダ",
-          "BTTEnabled" : 1,
-          "BTTEnabled2" : 1,
           "BTTOrder" : 6,
-          "BTTAdditionalActions" : [
+          "BTTActionsToExecute" : [
             {
-              "BTTActionCategory" : 0,
-              "BTTLastUpdatedAt" : 1767917116.3770928,
+              "BTTLastUpdatedAt" : 1767917704.130929,
               "BTTTriggerParentUUID" : "7E974CAC-03D3-4A52-98FC-DA2FB8ABB030",
               "BTTIsPureAction" : true,
               "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
               "BTTUUID" : "8F56564D-6823-4AD1-997C-85AEBEDA69B5",
               "BTTLayoutIndependentActionChar" : "c",
               "BTTShortcutToSend" : "55,8",
-              "BTTEnabled" : 1,
-              "BTTEnabled2" : 1,
               "BTTOrder" : 9
             }
           ],
@@ -465,15 +389,164 @@
             "BTTHUDText" : "copied",
             "BTTShowHUD" : 1
           }
+        },
+        {
+          "BTTLastUpdatedAt" : 1770082525.3271689,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "D341F9C4-3856-41FE-BC00-F8825DB25468",
+          "BTTPredefinedActionType" : 19,
+          "BTTPredefinedActionName" : "ウィンドウを左に最大化",
+          "BTTAdditionalConfiguration" : "786465",
+          "BTTShortcutKeyboardType" : 59272,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "h",
+          "BTTShortcutKeyCode" : 4,
+          "BTTShortcutAdvancedModifierKeys" : "786465",
+          "BTTShortcutModifierKeys" : 786432,
+          "BTTOrder" : 3,
+          "BTTAutoAdaptToKeyboardLayout" : 0
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.174058,
+          "BTTTriggerType" : 132,
+          "BTTTriggerTypeDescriptionReadOnly" : "TipTap左（2本指修正）",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "23F5AAEE-D551-4A0B-9F9D-F748A4AD5D88",
+          "BTTOrder" : 5,
+          "BTTActionsToExecute" : [
+            {
+              "BTTLastUpdatedAt" : 1767917704.1286259,
+              "BTTTriggerParentUUID" : "23F5AAEE-D551-4A0B-9F9D-F748A4AD5D88",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+              "BTTUUID" : "361EBE5D-6BF8-4027-ACFF-7D0749FBCCD9",
+              "BTTLayoutIndependentActionChar" : "x",
+              "BTTShortcutToSend" : "60,58,55,7",
+              "BTTOrder" : 10
+            }
+          ],
+          "BTTTriggerConfig" : {
+            "BTTNoTouchTimeout" : 0,
+            "BTTHUDText" : "copied",
+            "BTTShowHUD" : 1
+          }
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.1740751,
+          "BTTTriggerType" : 106,
+          "BTTTriggerTypeDescriptionReadOnly" : "4本指で右にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "42FC7718-EC3B-49CB-A656-2787FBD4B32F",
+          "BTTEnabled2" : 0,
+          "BTTOrder" : 0
+        },
+        {
+          "BTTLastUpdatedAt" : 1771413143.4588089,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "C98614B7-4084-46F0-B8BA-43AD5FF0256B",
+          "BTTPredefinedActionType" : 19,
+          "BTTPredefinedActionName" : "ウィンドウを左に最大化",
+          "BTTAdditionalConfiguration" : "9175073",
+          "BTTShortcutKeyboardType" : 0,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "LEFT",
+          "BTTShortcutKeyCode" : 123,
+          "BTTShortcutAdvancedModifierKeys" : "9175073",
+          "BTTShortcutModifierKeys" : 9175040,
+          "BTTOrder" : 1,
+          "BTTAutoAdaptToKeyboardLayout" : 0
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.174037,
+          "BTTTriggerType" : 100,
+          "BTTTriggerTypeDescriptionReadOnly" : "3本指で左にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "BD4D54DF-9192-4A92-81FB-50B5A6F7F9B3",
+          "BTTEnabled2" : 0,
+          "BTTOrder" : 2
+        },
+        {
+          "BTTLastUpdatedAt" : 1771413143.4588499,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "E41C77F6-2523-4572-9430-B18CA0FDA56C",
+          "BTTPredefinedActionType" : 20,
+          "BTTPredefinedActionName" : "ウィンドウを右に最大化",
+          "BTTAdditionalConfiguration" : "9175073",
+          "BTTShortcutKeyboardType" : 0,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "RIGHT",
+          "BTTShortcutKeyCode" : 124,
+          "BTTShortcutAdvancedModifierKeys" : "9175073",
+          "BTTShortcutModifierKeys" : 9175040,
+          "BTTOrder" : 0,
+          "BTTAutoAdaptToKeyboardLayout" : 0
+        },
+        {
+          "BTTLastUpdatedAt" : 1770082525.3272672,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "F8AC8A2D-AC96-4E39-8D7B-69B800361DCF",
+          "BTTPredefinedActionType" : 21,
+          "BTTPredefinedActionName" : "ウィンドウを最大化",
+          "BTTAdditionalConfiguration" : "786465",
+          "BTTShortcutKeyboardType" : 0,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "RETURN",
+          "BTTShortcutKeyCode" : 36,
+          "BTTShortcutAdvancedModifierKeys" : "786465",
+          "BTTShortcutModifierKeys" : 786432,
+          "BTTOrder" : 4,
+          "BTTAutoAdaptToKeyboardLayout" : 0
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.174042,
+          "BTTTriggerType" : 114,
+          "BTTTriggerTypeDescriptionReadOnly" : "TipTap右（1本指修正）",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "2B3F605F-AB5C-4DA6-A2FF-4702011F516A",
+          "BTTOrder" : 7,
+          "BTTActionsToExecute" : [
+            {
+              "BTTLastUpdatedAt" : 1767917704.128098,
+              "BTTTriggerParentUUID" : "2B3F605F-AB5C-4DA6-A2FF-4702011F516A",
+              "BTTIsPureAction" : true,
+              "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+              "BTTUUID" : "E1666105-D12B-414B-B0ED-27E09C9198C9",
+              "BTTLayoutIndependentActionChar" : "x",
+              "BTTShortcutToSend" : "60,58,55,7",
+              "BTTOrder" : 11
+            }
+          ]
+        },
+        {
+          "BTTLastUpdatedAt" : 1767917704.1740661,
+          "BTTTriggerType" : 105,
+          "BTTTriggerTypeDescriptionReadOnly" : "4本指で左にスワイプ",
+          "BTTTriggerClass" : "BTTTriggerTypeTouchpadAll",
+          "BTTUUID" : "3AEE221D-47E8-4B22-90A8-E19A89890E8F",
+          "BTTEnabled2" : 0,
+          "BTTOrder" : 1
+        },
+        {
+          "BTTLastUpdatedAt" : 1770082525.3271799,
+          "BTTTriggerType" : 0,
+          "BTTTriggerClass" : "BTTTriggerTypeKeyboardShortcut",
+          "BTTUUID" : "A6A433F6-C0A9-4DEC-B76B-7EB361F86130",
+          "BTTPredefinedActionType" : 20,
+          "BTTPredefinedActionName" : "ウィンドウを右に最大化",
+          "BTTAdditionalConfiguration" : "786465",
+          "BTTShortcutKeyboardType" : 59272,
+          "BTTTriggerOnDown" : 1,
+          "BTTLayoutIndependentChar" : "l",
+          "BTTShortcutKeyCode" : 37,
+          "BTTShortcutAdvancedModifierKeys" : "786465",
+          "BTTShortcutModifierKeys" : 786432,
+          "BTTOrder" : 2,
+          "BTTAutoAdaptToKeyboardLayout" : 0
         }
-      ]
-    },
-    {
-      "BTTAppBundleIdentifier" : "com.apple.finder",
-      "BTTAppName" : "Finder",
-      "BTTAppAutoInvertIcon" : 1,
-      "BTTTriggers" : [
-
       ]
     }
   ],
