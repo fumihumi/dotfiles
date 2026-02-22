@@ -36,3 +36,4 @@ repomix-output.xml
 CLAUDE.local.md
 .vscode/copilot-instructions-local.md
 tmp/local
+.copilot/
