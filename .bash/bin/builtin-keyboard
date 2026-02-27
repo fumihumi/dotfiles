@@ -1,0 +1,236 @@
+#!/usr/bin/env bash
+# Built-in keyboard の有効/無効を切り替える
+#
+# 仕組み:
+#   karabiner.json の devices エントリにある disable_built_in_keyboard_if_exists フラグを
+#   トグルすることで、ドライバレベルでビルトインキーボードを完全に無効化/有効化する。
+#   （修飾キー含めすべてのキー入力がブロックされる）
+#
+#   対象デバイスは karabiner_cli --list-connected-devices から接続中の全外部キーボードを
+#   動的に取得し、まとめて更新する。
+#
+# Usage:
+#   builtin-keyboard status    # 現在の状態を表示
+#   builtin-keyboard toggle    # 全外部キーボードの disable フラグをトグル
+#   builtin-keyboard disable   # 無効化 (既に無効なら何もしない)
+#   builtin-keyboard enable    # 有効化 (既に有効なら何もしない)
+set -euo pipefail
+
+# --- prerequisites -----------------------------------------------------------
+
+# Alfred 等の非インタラクティブ環境向けに Homebrew の PATH を補完
+if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
+
+need() { command -v "$1" >/dev/null 2>&1 || { echo "Error: $1 is not installed." >&2; exit 1; }; }
+need karabiner_cli
+need jq
+
+KARABINER_CONFIG="$HOME/.config/karabiner/karabiner.json"
+
+if [[ ! -f "$KARABINER_CONFIG" ]]; then
+    echo "Error: $KARABINER_CONFIG not found." >&2
+    exit 1
+fi
+
+# --- internal helpers --------------------------------------------------------
+
+# 接続中の外部キーボードデバイスの vendor_id/product_id/product名 を取得
+# 出力: "vendor_id product_id product_name" (1行1デバイス)
+_list_external_keyboard_ids() {
+    local raw
+    if ! raw=$(karabiner_cli --list-connected-devices 2>&1); then
+        echo "Error: karabiner_cli failed: $raw" >&2
+        return 1
+    fi
+
+    echo "$raw" | jq -r '
+        .[] |
+        select(
+            .is_built_in_keyboard != true and
+            .is_built_in_pointing_device != true and
+            .is_built_in_touch_bar != true and
+            (.device_identifiers.is_virtual_device != true) and
+            .device_identifiers.is_keyboard == true
+        ) |
+        "\(.device_identifiers.vendor_id) \(.device_identifiers.product_id) \(.product)"'
+}
+
+# karabiner.json を安全に更新する
+# jq の出力をtmpファイルに書き込み、内容が有効な場合のみ元ファイルを置き換える
+# 引数: jq_args... (最後にファイルパスが必要)
+_safe_jq_update() {
+    local tmp="$KARABINER_CONFIG.tmp"
+
+    if ! jq "$@" > "$tmp"; then
+        echo "Error: jq failed to process $KARABINER_CONFIG" >&2
+        rm -f "$tmp"
+        return 1
+    fi
+
+    # 空ファイルや不正なJSONでないことを確認
+    if [[ ! -s "$tmp" ]] || ! jq empty "$tmp" 2>/dev/null; then
+        echo "Error: jq produced invalid output. Original file is unchanged." >&2
+        rm -f "$tmp"
+        return 1
+    fi
+
+    mv "$tmp" "$KARABINER_CONFIG"
+}
+
+# karabiner.json の devices エントリを更新 (なければ追加)
+# 引数: vendor_id product_id true/false
+_set_disable_flag() {
+    local vid="$1" pid="$2" value="$3"
+
+    local exists
+    exists=$(jq --argjson vid "$vid" --argjson pid "$pid" '
+        [.profiles[] | select(.selected==true) |
+            (.devices // [])[] |
+            select(.identifiers.vendor_id == $vid and .identifiers.product_id == $pid and .identifiers.is_keyboard == true)
+        ] | length
+    ' "$KARABINER_CONFIG")
+
+    if [ "$exists" = "0" ]; then
+        _safe_jq_update --argjson vid "$vid" --argjson pid "$pid" --argjson val "$value" '
+            (.profiles[] | select(.selected==true).devices) //= [] |
+            (.profiles[] | select(.selected==true).devices) += [{
+                "identifiers": {"is_keyboard": true, "product_id": $pid, "vendor_id": $vid},
+                "disable_built_in_keyboard_if_exists": $val
+            }]
+        ' "$KARABINER_CONFIG"
+    else
+        _safe_jq_update --argjson vid "$vid" --argjson pid "$pid" --argjson val "$value" '
+            (.profiles[] | select(.selected==true).devices[] |
+                select(.identifiers.vendor_id == $vid and .identifiers.product_id == $pid and .identifiers.is_keyboard == true)
+            ).disable_built_in_keyboard_if_exists = $val
+        ' "$KARABINER_CONFIG"
+    fi
+}
+
+# 最初の外部キーボードの現在の disable フラグ値を返す
+# 出力: true / false
+_current_state() {
+    local devices
+    devices=$(_list_external_keyboard_ids)
+    if [ -z "$devices" ]; then
+        echo "false"
+        return
+    fi
+
+    local first_vid first_pid
+    read -r first_vid first_pid _ <<< "$(echo "$devices" | head -1)"
+    jq -r --argjson vid "$first_vid" --argjson pid "$first_pid" '
+        [.profiles[] | select(.selected==true) |
+            (.devices // [])[] |
+            select(.identifiers.vendor_id == $vid and .identifiers.product_id == $pid and .identifiers.is_keyboard == true)
+        ][0].disable_built_in_keyboard_if_exists // false
+    ' "$KARABINER_CONFIG"
+}
+
+# --- subcommands -------------------------------------------------------------
+
+cmd_status() {
+    local devices
+    devices=$(_list_external_keyboard_ids)
+
+    if [ -z "$devices" ]; then
+        echo "No external keyboard connected."
+        return 1
+    fi
+
+    while IFS=' ' read -r vid pid name; do
+        local flag
+        flag=$(jq -r --argjson vid "$vid" --argjson pid "$pid" '
+            [.profiles[] | select(.selected==true) |
+                (.devices // [])[] |
+                select(.identifiers.vendor_id == $vid and .identifiers.product_id == $pid and .identifiers.is_keyboard == true)
+            ][0].disable_built_in_keyboard_if_exists // false
+        ' "$KARABINER_CONFIG")
+
+        if [ "$flag" = "true" ]; then
+            echo "[$name] Built-in keyboard: OFF (Disabled)"
+        else
+            echo "[$name] Built-in keyboard: ON (Enabled)"
+        fi
+    done <<< "$devices"
+}
+
+cmd_toggle() {
+    local devices
+    devices=$(_list_external_keyboard_ids)
+
+    if [ -z "$devices" ]; then
+        echo "No external keyboard connected."
+        return 1
+    fi
+
+    local current_flag
+    current_flag=$(_current_state)
+
+    local next_flag="true"
+    [ "$current_flag" = "true" ] && next_flag="false"
+
+    while IFS=' ' read -r vid pid name; do
+        _set_disable_flag "$vid" "$pid" "$next_flag"
+        if [ "$next_flag" = "true" ]; then
+            echo "[$name] Built-in keyboard: OFF (Disabled)"
+        else
+            echo "[$name] Built-in keyboard: ON (Enabled)"
+        fi
+    done <<< "$devices"
+}
+
+cmd_disable() {
+    local devices
+    devices=$(_list_external_keyboard_ids)
+
+    if [ -z "$devices" ]; then
+        echo "No external keyboard connected."
+        return 1
+    fi
+
+    if [ "$(_current_state)" = "true" ]; then
+        echo "Already disabled."
+        return 0
+    fi
+
+    while IFS=' ' read -r vid pid name; do
+        _set_disable_flag "$vid" "$pid" "true"
+        echo "[$name] Built-in keyboard: OFF (Disabled)"
+    done <<< "$devices"
+}
+
+cmd_enable() {
+    local devices
+    devices=$(_list_external_keyboard_ids)
+
+    if [ -z "$devices" ]; then
+        echo "No external keyboard connected."
+        return 1
+    fi
+
+    if [ "$(_current_state)" = "false" ]; then
+        echo "Already enabled."
+        return 0
+    fi
+
+    while IFS=' ' read -r vid pid name; do
+        _set_disable_flag "$vid" "$pid" "false"
+        echo "[$name] Built-in keyboard: ON (Enabled)"
+    done <<< "$devices"
+}
+
+# --- main --------------------------------------------------------------------
+
+case "${1:-}" in
+    status)  cmd_status  ;;
+    toggle)  cmd_toggle  ;;
+    disable) cmd_disable ;;
+    enable)  cmd_enable  ;;
+    *)
+        echo "Usage: builtin-keyboard {status|toggle|disable|enable}" >&2
+        exit 1
+        ;;
+esac

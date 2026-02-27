@@ -1,0 +1,15 @@
+# Built-in keyboard の有効/無効を切り替える
+#
+# ロジック本体は .bash/bin/builtin-keyboard にあり、Alfred 等からも直接呼べる。
+# ここではシェル関数としてのエイリアスを提供する。
+#
+# 使い方:
+#   toggle_builtin_keyboard    # 全外部キーボードの disable フラグをトグル
+#   disable_builtin_keyboard   # ビルトインキーボードを無効化 (既に無効なら何もしない)
+#   enable_builtin_keyboard    # ビルトインキーボードを有効化 (既に有効なら何もしない)
+#   status_builtin_keyboard    # 現在の状態を表示
+
+status_builtin_keyboard()  { builtin-keyboard status;  }
+toggle_builtin_keyboard()  { builtin-keyboard toggle;  }
+disable_builtin_keyboard() { builtin-keyboard disable; }
+enable_builtin_keyboard()  { builtin-keyboard enable;  }
