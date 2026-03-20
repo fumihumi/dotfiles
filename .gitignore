@@ -21,6 +21,7 @@
 .config/iterm2/
 .config/jgit/
 .config/op/
+.config/gcloud/
 
 .config/zed/*
 !.config/zed/*.json
@@ -33,3 +34,4 @@
 !.bash/works/.gitkeep
 !.bash/works/bin/.gitkeep
 .bash/completion.d/_*
+

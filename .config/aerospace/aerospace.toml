@@ -13,7 +13,7 @@ after-startup-command = []
 start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
-enable-normalization-flatten-containers = true
+enable-normalization-flatten-containers = false
 enable-normalization-opposite-orientation-for-nested-containers = true
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
@@ -48,13 +48,12 @@ automatically-unhide-macos-hidden-apps = false
 persistent-workspaces = [
   "1", "2", "3",
   # "4", "5", "6", "7", "8", "9",
-  # qwert
-  "Q", "W", "E", "R", "T",
   # asdfg
-  "A", "S", "D", "F", "G",
+  "A1", "A2", "A3", "A4", "A5",
+  # qwert
+  "Q1", "Q2", "Q3", "Q4", "Q5",
   # zxcvb
-  "Z", "X", "C", "V", "B",
-
+  "Z1", "Z2", "Z3", "Z4", "Z5",
   # sort alphabetically
   # "A", "B", "C", "D", "E", "F", "G", "I", "M", "N", "O", "P", "Q","R", "S", "T", "U", "V", "W", "X", "Y", "Z",
   ]
@@ -137,10 +136,12 @@ on-mode-changed = []
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
     alt-h = 'focus left'
     alt-j = 'focus down'
-    alt-k = 'focus up'
+    # alt-k = 'focus up'
     alt-l = 'focus right'
+    alt-right = 'focus right'
+    alt-left = 'focus left'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#move
+    # See: https://nikitabobko.github.ioっkっj/AeroSpace/commands#move
     alt-shift-h = 'move left'
     alt-shift-j = 'move down'
     alt-shift-k = 'move up'
@@ -150,8 +151,8 @@ on-mode-changed = []
     #
     alt-up = 'resize smart +50'
     alt-down = 'resize smart -50'
-    alt-left = 'resize smart -50'
-    alt-right = 'resize smart +50'
+    # alt-left = 'resize smart -50'
+    # alt-right = 'resize smart +50'
     alt-comma = 'resize smart -50'
     alt-period = 'resize smart +50'
     # alt
@@ -171,23 +172,23 @@ on-mode-changed = []
     # alt-9 = 'workspace 9'
 
     # sort qwerty
-    alt-q = "workspace Q"
-    alt-w = "workspace W"
-    alt-e = "workspace E"
-    alt-r = "workspace R"
-    alt-t = "workspace T"
+    alt-q = "workspace Q1"
+    alt-w = "workspace Q2"
+    alt-e = "workspace Q3"
+    alt-r = "workspace Q4"
+    alt-t = "workspace Q5"
     # sort asdfg
-    alt-a = "workspace A"
-    alt-s = "workspace S"
-    alt-d = "workspace D"
-    alt-f = "workspace F"
-    alt-g = "workspace G"
+    alt-a = "workspace A1"
+    alt-s = "workspace A2"
+    alt-d = "workspace A3"
+    alt-f = "workspace A4"
+    alt-g = "workspace A5"
     # sort zxcvb
-    alt-z = "workspace Z"
-    alt-x = "workspace X"
-    alt-c = "workspace C"
-    alt-v = "workspace V"
-    alt-b = "workspace B"
+    alt-z = "workspace Z1"
+    alt-x = "workspace Z2"
+    alt-c = "workspace Z3"
+    alt-v = "workspace Z4"
+    alt-b = "workspace Z5"
 
     # sort alphabetically
     # alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
@@ -225,23 +226,23 @@ on-mode-changed = []
     # alt-shift-9 = 'move-node-to-workspace 9'
 
     # sort qwert
-    alt-shift-q = "move-node-to-workspace Q"
-    alt-shift-w = "move-node-to-workspace W"
-    alt-shift-e = "move-node-to-workspace E"
-    alt-shift-r = "move-node-to-workspace R"
-    alt-shift-t = "move-node-to-workspace T"
+    alt-shift-q = "move-node-to-workspace Q1"
+    alt-shift-w = "move-node-to-workspace Q2"
+    alt-shift-e = "move-node-to-workspace Q3"
+    alt-shift-r = "move-node-to-workspace Q4"
+    alt-shift-t = "move-node-to-workspace Q5"
     # sort asdfg
-    alt-shift-a = "move-node-to-workspace A"
-    alt-shift-s = "move-node-to-workspace S"
-    alt-shift-d = "move-node-to-workspace D"
-    alt-shift-f = "move-node-to-workspace F"
-    alt-shift-g = "move-node-to-workspace G"
+    alt-shift-a = "move-node-to-workspace A1"
+    alt-shift-s = "move-node-to-workspace A2"
+    alt-shift-d = "move-node-to-workspace A3"
+    alt-shift-f = "move-node-to-workspace A4"
+    alt-shift-g = "move-node-to-workspace A5"
     # sort zxcvb
-    alt-shift-z = "move-node-to-workspace Z"
-    alt-shift-x = "move-node-to-workspace X"
-    alt-shift-c = "move-node-to-workspace C"
-    alt-shift-v = "move-node-to-workspace V"
-    alt-shift-b = "move-node-to-workspace B"
+    alt-shift-z = "move-node-to-workspace Z1"
+    alt-shift-x = "move-node-to-workspace Z2"
+    alt-shift-c = "move-node-to-workspace Z3"
+    alt-shift-v = "move-node-to-workspace Z4"
+    alt-shift-b = "move-node-to-workspace Z5"
     # sort alphabetically
     # alt-shift-a = 'move-node-to-workspace A'
     # alt-shift-b = 'move-node-to-workspace B'
@@ -308,26 +309,97 @@ on-mode-changed = []
     if.app-id = 'company.thebrowser.Browser' # arc
     run = 'layout floating'
 
+[[on-window-detected]]
+  if.app-id = 'com.google.Chrome.app.kjgfgldnnfoeklkmfkjfagphfepbbdan' # Google Meet
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.google.Chrome.app.kjajbhpgcmkmakfdjmghbhkkkpgbnbbf' # Google Gemini
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.jordanbaird.Ice'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.1password.1password'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.ActivityMonitor'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.elgato.StreamDeck'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.fortinet.FortiClient'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'org.pqrs.Karabiner-Elements.Settings'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'org.pqrs.Karabiner-EventViewer'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'io.rancherdesktop.app'
+  run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.apple.stocks'
+    run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'co.zeit.hyper'
+    run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.mitchellh.ghostty'
+    run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'us.zoom.xos'
+    run = 'layout floating'
+
+# com.apple.Preview
+[[on-window-detected]]
+    if.app-id = 'com.apple.Preview'
+    run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.readdle.smartemail-Mac'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'jp.aktsk.internal.ishin-client-iOS-develop.inhouse'
+  run = 'layout floating'
+
+
+
 ########################
 
 # move to workspace
 
 [[on-window-detected]]
     if.app-id = 'com.tinyspeck.slackmacgap'
-    run = 'move-node-to-workspace S'
+    run = 'move-node-to-workspace A2'
 
 [[on-window-detected]]
-    # if.app-id = 'company.thebrowser.Browser' # arc
-    if.app-id = 'company.thebrowser.dia' # dia
-    run = 'move-node-to-workspace S'
+    if.app-id = 'company.thebrowser.Browser' # arc
+    # if.app-id = 'company.thebrowser.dia' # dia
+    run = 'move-node-to-workspace A2'
 
 [[on-window-detected]]
     if.app-id = 'com.spotify.client'
-    run = 'move-node-to-workspace D'
-
-[[on-window-detected]]
-  if.app-id = 'com.readdle.smartemail-Mac'
-  run = 'move-node-to-workspace F'
+    run = 'move-node-to-workspace A3'
 
 [[on-window-detected]]
   if.app-id = "com.google.Chrome"
