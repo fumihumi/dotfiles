@@ -8,3 +8,6 @@ export GIT_IGNORE_BRANCH_LIST='^master|develop|main$'
 export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+export FZF_DEFAULT_COMMAND='fd'
+

@@ -37,3 +37,5 @@ CLAUDE.local.md
 .vscode/copilot-instructions-local.md
 tmp/local
 .copilot/
+
+**/.claude/settings.local.json

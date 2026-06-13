@@ -10,7 +10,7 @@ uv = "latest"
 
 usage = "latest"
 
-"npm:@aku11i/phantom" = "latest"
+"npm:@phantompane/cli" = "latest"
 "npm:@openai/codex" = "latest"
 "npm:@anthropic-ai/claude-code" = "latest"
 "npm:ccusage" = "latest"

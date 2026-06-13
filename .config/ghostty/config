@@ -19,6 +19,11 @@ keybind = ctrl+b>j=goto_split:down
 keybind = ctrl+b>k=goto_split:up
 keybind = ctrl+b>l=goto_split:right
 
+# keybind = ctrl+b>shift+h=resize_split:left,10
+# keybind = ctrl+b>shift+j=resize_split:down,10
+# keybind = ctrl+b>shift+k=resize_split:up,10
+# keybind = ctrl+b>shift+l=resize_split:right,10
+
 keybind = ctrl+b>n=new_window
 
 keybind = ctrl+b>shift+\=new_split:right

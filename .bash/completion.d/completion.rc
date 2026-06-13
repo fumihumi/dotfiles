@@ -9,5 +9,7 @@ source <(bt-manage completion bash)
 source <(phantom completion bash)
 source <(pnpm completion bash)
 source <(gwq completion bash)
+source <(pup completions bash)
+source <(pnpm completion bash)
 
 eval "$(git-wt --init bash)"

@@ -133,3 +133,5 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[phantom]
+	editor = code --reuse-window

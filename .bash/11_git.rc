@@ -3,9 +3,19 @@ function fzf_branch {
   (git branch | fzf)
 }
 
+function fzf_branch_all {
+  (git branch -a | sed 's/remotes\/origin\///' | sed 's/^[ *|+]*//' | sort -u | fzf)
+}
+
 function fzf_git_ch {
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     git checkout `fzf_branch`
+  fi
+}
+
+function fzf_git_rch {
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    git checkout `fzf_branch_all`
   fi
 }
 
@@ -72,6 +82,7 @@ fzf_git_vim() {
 }
 
 alias ch='fzf_git_ch'
+alias rch='fzf_git_rch'
 alias gid='fzf_git_d'
 alias gidm='fzf_git_d_merged'
 alias pullRebase='fzf_git_pull_rebase'
@@ -82,4 +93,13 @@ cwd() {
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     cd `git rev-parse --show-toplevel`
   fi
+}
+
+gh-prview() {
+   local base=${1:-popo}
+   gh pr list \
+   --base "$base" \
+   --limit 100 \
+   --json number,title,headRefName,author,updatedAt,url \
+   --jq ".[] | \"#\(.number) \(.title)  \(.headRefName) -> \(.url)\""
 }

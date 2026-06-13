@@ -49,7 +49,11 @@ is_git_worktree() {
 
 git_prompt_string() {
   if type __git_ps1 &>/dev/null; then
-    echo "$(__git_ps1)$(is_git_worktree)"
+    local branch="$(__git_ps1)"
+    if [ -n "$branch" ]; then
+      local short_hash=$(git rev-parse --short HEAD 2>/dev/null)
+      echo "$branch:$short_hash$(is_git_worktree)"
+    fi
   fi
 }
 

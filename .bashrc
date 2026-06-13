@@ -21,6 +21,5 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/takafumi.suzuki/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-alias claude="/Users/takafumi.suzuki/.claude/local/claude"
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path bash)"

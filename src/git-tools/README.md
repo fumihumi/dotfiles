@@ -1,10 +1,13 @@
 # git-tools
 
-Git サブコマンドコレクション - 日常的な Git 操作を効率化するツール群
+Git / GitHub CLI サブコマンドコレクション - 日常的な Git 操作を効率化するツール群
 
 ## 概要
 
-このディレクトリには、Git の操作を拡張・効率化するためのカスタムサブコマンドが含まれています。規約ベースの自動ビルドシステムにより、新しいツールの追加も簡単です。
+このディレクトリには、Git および GitHub CLI (`gh`) の操作を拡張・効率化するためのカスタムサブコマンドが含まれています。規約ベースの自動ビルドシステムにより、新しいツールの追加も簡単です。
+
+- `git-*` ディレクトリ → `git <name>` として呼び出せるサブコマンド
+- `gh-*` ディレクトリ → `gh <name>` として呼び出せる拡張コマンド
 
 ## ツール一覧
 
@@ -30,6 +33,18 @@ Git worktree のパスを取得・移動
 
 ```bash
 cd $(git wcd feature-branch)
+```
+
+### gh-pr-watch-merge
+
+PR の CI / レビュー承認状態を監視し、条件が揃ったら自動マージする gh 拡張コマンド
+
+```bash
+# PR #42 を監視してマージ
+gh pr-watch-merge 42
+
+# squash マージ & ブランチ削除
+gh pr-watch-merge 42 --merge-method squash --delete-branch
 ```
 
 ## インストール
@@ -100,7 +115,7 @@ touch git-newtool/completion.bash
 git-tools/
 ├── build.sh              # ビルドスクリプト
 ├── build.go              # ビルドシステム本体
-├── git-diff-summary/     # Go製ツール例
+├── git-diff-summary/     # Go製ツール（ブランチ間差分）
 │   ├── go.mod
 │   ├── main.go
 │   └── README.md
@@ -108,9 +123,14 @@ git-tools/
 │   ├── go.mod
 │   ├── main.go
 │   └── main_test.go
-└── git-wcd/
-    ├── git-wcd.sh
-    └── completion.bash
+├── git-wcd/              # Bash製ツール（worktreeパス取得）
+│   ├── git-wcd.sh
+│   └── completion.bash
+└── gh-pr-watch-merge/    # Go製ツール（PR監視・自動マージ）
+    ├── go.mod
+    ├── main.go
+    ├── main_test.go
+    └── README.md
 ```
 
 ## 必要な環境
