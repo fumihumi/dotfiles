@@ -36,3 +36,10 @@
 .bash/completion.d/_*
 
 .config/opencode/
+
+# Claude Code (~/.claude): 管理するのは設定ファイルのみ。
+# ランタイムデータや巨大ファイル・端末ローカルな設定は追跡しない。
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
+!.claude/statusline-command.sh
