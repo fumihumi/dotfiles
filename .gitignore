@@ -35,3 +35,4 @@
 !.bash/works/bin/.gitkeep
 .bash/completion.d/_*
 
+.config/opencode/
