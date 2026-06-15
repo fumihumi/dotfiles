@@ -21,7 +21,7 @@
 #   -r ROWS    : 縦の分割数 (行)            default: 3
 #   -c COLS    : 横の分割数 (列)            default: 2
 #   -s SESSION : tmux セッション名          default: claude (codex モード時: codex)
-#   -d WORKDIR : 各ペインの作業ディレクトリ default: リポジトリルート
+#   -d WORKDIR : 各ペインの作業ディレクトリ default: コマンドを実行したカレントディレクトリ
 #   -x         : Codex を起動する (default: Claude Code)
 #   -a         : 起動後そのまま tmux にアタッチする (default: detach)
 #
@@ -31,13 +31,16 @@
 
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+# 作業ディレクトリのデフォルトは「コマンドを実行したカレントディレクトリ」。
+# スクリプトはパスを通して呼び出されるため、$0 (スクリプトの場所) ではなく
+# 呼び出し元の $PWD を基点にする。
+INVOKE_DIR="$PWD"
 
 # --- デフォルト値 ---
 ROWS=3
 COLS=2
 SESSION=""
-WORK_DIR="$ROOT_DIR"
+WORK_DIR="$INVOKE_DIR"
 CLAUDE_CMD="${CLAUDE_CMD:-claude}"
 CODEX_CMD="${CODEX_CMD:-codex}"
 MODE="claude"
